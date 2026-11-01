@@ -1,0 +1,13 @@
+# MATLAB / Simulink temporary files
+*.asv
+*.autosave
+*.slxc
+slprj/
+codegen/
+*.mexa64
+*.mexw64
+*.mexmaci64
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
