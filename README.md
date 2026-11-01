@@ -87,4 +87,4 @@ The original large `outer per arm.fig` (~99 MiB) is omitted to keep the reposito
 
 ## License
 
-No license has been selected. Please obtain permission before reuse or redistribution beyond applicable law.
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for the full license text.
