@@ -54,6 +54,8 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 
 **Central finding:** unaligned neighbor measurements at 0.2 ms yield **~21.1%** low-order current THD; an aligned 0.2 ms version gives **~5.1%**. At 1.0 ms the unaligned case diverges while the aligned version stays bounded (THD **~5.0%**). A clipped initial-mismatch case at 1.4 ms aligned delay converges, while 5.5 ms exhibits a bounded ~26 Hz oscillation. These results apply to the archived simulations and analysis windows, not verified hardware.
 
+**[Browse the separate Test 3 archive (repeat of base cases)](experiments/test3/README.md)** — 18 original figures and figure-by-figure test methods; the upload is identical to the base archive and does not increase the 11 unique case count.
+
 ## Files and reproduction
 
 - `model/MMC_Per_arm_outer_v5_G2.slx` — original published model (preserved).
