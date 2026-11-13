@@ -50,9 +50,15 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 | **B: Local correction and fresh-own delay** | 4 | Clipped duty, no-delay reference, 0.2/1.0 ms unaligned delay | [B1–B4](docs/EXPERIMENT_GALLERY.md#b-balancing-correction-and-fresh-own-sample-delay-4-cases) |
 | **C: Timestamp-aligned delay** | 4 | Aligned 0.2/1.0/1.4/5.5 ms, stability and deadband effects | [C1–C4](docs/EXPERIMENT_GALLERY.md#c-time-aligned-neighbor-voltage-delay-4-cases) |
 
-![Matched fresh-versus-aligned delay comparison](experiments/aligned/figures/figC_aligned_delay.png)
+## PCC load-switching validation
 
-**Central finding:** unaligned neighbor measurements at 0.2 ms yield **~21.1%** low-order current THD; an aligned 0.2 ms version gives **~5.1%**. At 1.0 ms the unaligned case diverges while the aligned version stays bounded (THD **~5.0%**). A clipped initial-mismatch case at 1.4 ms aligned delay converges, while 5.5 ms exhibits a bounded ~26 Hz oscillation. These results apply to the archived simulations and analysis windows, not verified hardware.
+![PCC load-switching test — converter, load and grid active power](experiments/base/figures/fig4_case3_load_test.png)
+
+**Test procedure:** Operate the MMC near **1,500 W** active power and connect a **1 kW PCC load at 2.4 s**. Connect a second **1 kW load at 2.7 s**, then disconnect the second load at **3.0 s**. Monitor converter power, total load power and grid power, using consistent sign conventions and a 20 ms averaging window.
+
+**Recorded result:** Converter output remains near **1,501–1,504 W** while grid exchange changes with the loads: approximately **+487 W**, **−509 W**, then **+491 W**. The recorded power balance follows `P_converter ≈ P_load + P_grid` under the archived sign convention. These are simulation results, not HIL or hardware measurements.
+
+[View the original figure with the experimental method and result](experiments/base/figures/fig4_case3_load_test.md). The **time-aligned communication delay** comparisons remain documented in the [aligned-delay experiment gallery](experiments/aligned/figures/README.md).
 
 **[Browse the separate Test 3 archive (repeat of base cases)](experiments/test3/README.md)** — 18 original figures and figure-by-figure test methods; the upload is identical to the base archive and does not increase the 11 unique case count.
 
