@@ -1,4 +1,4 @@
-# MMC Per-Arm Control — Experimental Validation
+# MMC Per-Arm Control: Experimental Validation
 
 A **single-phase grid-connected Modular Multilevel Converter (MMC)** with independent upper/lower arm leaders, local neighbor-based capacitor-voltage balancing, and phase-shifted PWM.
 
