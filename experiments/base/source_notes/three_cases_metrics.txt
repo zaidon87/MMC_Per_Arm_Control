@@ -1,0 +1,36 @@
+Running MMC_Per_arm_outer_v5_G2_case1_kv0 ...
+  done in 44 s
+Running MMC_Per_arm_outer_v5_G2_case2_imbalance ...
+  done in 25 s
+Running MMC_Per_arm_outer_v5_G2_case3_base ...
+  done in 34 s
+
+==== CAPACITOR-VOLTAGE SPREAD  max(Vc) - min(Vc), upper arm ====
+Case 1: k_v = 0 (no local balancing)                           0.3 s:  0.54 V | 0.5 s:  0.62 V | 1.0 s:  1.23 V | 2.0 s:  2.07 V
+Case 2: initial imbalance HB_u3 = 110 V, HB_u6 = 90 V          0.3 s:  0.19 V | 0.5 s:  0.18 V | 1.0 s:  0.13 V | 2.0 s:  0.18 V
+Case 3: base, I_max = 17 A, P_max = 2500 W, P_SLEW = 5 kW/s    0.3 s:  0.19 V | 0.5 s:  0.14 V | 1.0 s:  0.20 V | 2.0 s:  0.29 V
+Case 1 drift rate of the spread (fit 0.5-2 s): 1.19 V/s   (reduced model predicted ~5 V/s)
+Case 1 end of run: per-SM Vc_up = [98.56 98.34 98.37 98.88 96.81 97.06 97.7 97.25] V
+Case 2 convergence (spread < 1.0 V from then on): t = 0.170 s  (0 ms after the current starts at ~0.17 s)
+Case 2 convergence (spread < 0.5 V from then on): t = 0.242 s  (72 ms after the current starts at ~0.17 s)
+Case 2 mean Vc_up at end: 97.65 V | residual spread at 1 s: 0.13 V
+
+==== CASE 3: P* staircase tracking (P_meas of the UPPER arm leader, 20 ms average) ====
+level 1500 W  [0.5-0.6 s]  P_meas =   1506 W  err =    +6 W (+0.4 %)  i_ac peak =  9.74 A (2P/V =  9.22 A)
+level 1750 W  [0.9-1.0 s]  P_meas =   1754 W  err =    +4 W (+0.2 %)  i_ac peak = 11.07 A (2P/V = 10.76 A)
+level 2000 W  [1.3-1.4 s]  P_meas =   2003 W  err =    +3 W (+0.2 %)  i_ac peak = 12.70 A (2P/V = 12.30 A)
+level 2250 W  [1.7-1.8 s]  P_meas =   2250 W  err =    +0 W (+0.0 %)  i_ac peak = 13.88 A (2P/V = 13.83 A)
+level 2500 W  [2.1-2.2 s]  P_meas =   2502 W  err =    +2 W (+0.1 %)  i_ac peak = 15.35 A (2P/V = 15.37 A)
+level 1500 W  [2.3-2.4 s]  P_meas =   1752 W  err =  +252 W (+16.8 %)  i_ac peak = 11.49 A (2P/V =  9.22 A)
+step at 0.6 s: over/undershoot =   +33 W (13 % of the 250 W step)
+step at 1.0 s: over/undershoot =   +43 W (17 % of the 250 W step)
+step at 1.4 s: over/undershoot =   +29 W (12 % of the 250 W step)
+step at 1.8 s: over/undershoot =   +33 W (13 % of the 250 W step)
+step at 2.2 s: over/undershoot =   +49 W (5 % of the 1000 W step)
+Case 3 max modulation index: m_up = 0.928, m_low = 0.930 (must stay < 1)
+
+==== CASE 3: PCC load test (v_ac x i, 20 ms moving average) ====
+no load      P_conv =  1733 W  P_load =     0 W  P_grid = +1726 W  | P_conv - P_load - P_grid =   +7 W  | i_grid peak = 11.64 A
+1 kW         P_conv =  1507 W  P_load =  1007 W  P_grid =  +493 W  | P_conv - P_load - P_grid =   +7 W  | i_grid peak =  3.51 A
+2 kW         P_conv =  1502 W  P_load =  2005 W  P_grid =  -509 W  | P_conv - P_load - P_grid =   +6 W  | i_grid peak =  3.70 A
+1 kW again   P_conv =  1500 W  P_load =  1006 W  P_grid =  +487 W  | P_conv - P_load - P_grid =   +7 W  | i_grid peak =  3.57 A
