@@ -14,3 +14,11 @@
 The 11 recorded cases consist of three base tests, four follow-up tests, and four aligned tests. Match cases by the MATLAB `R` array indices documented in [the gallery](../docs/EXPERIMENT_GALLERY.md). The original source does not include the four follow-up standalone Simulink model variants. 
 
 **Independent Test 3 archive:** [`experiments/test3/`](test3/README.md) keeps the repeated upload separate for navigation and provenance. It does not change the total of 11 distinct simulation cases.
+
+
+## Detailed procedures under every figure
+
+- [Base: 13 original images](base/figures/README.md)
+- [Aligned-delay: nine original images](aligned/figures/README.md)
+- [Historical and reduced-order analysis: five original images](base/source_notes/nvb/README.md)
+- [Separate test3 archival duplicate: 18 images](test3/figures/README.md)

@@ -16,6 +16,8 @@
 
 ---
 
+**Per-image documentation:** [13 base figures](../experiments/base/figures/README.md) · [9 aligned-delay figures](../experiments/aligned/figures/README.md) · [5 historical / predictive plots](../experiments/base/source_notes/nvb/README.md). Each image has an explicit test procedure, observable signals and numerical interpretation.
+
 ## A. Base model and converter performance (3 cases)
 
 ### A1 — No local voltage balancing (`case1_kv0`)

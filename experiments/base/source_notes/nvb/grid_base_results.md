@@ -1,45 +1,51 @@
-# نتائج الحالة الأساسية — مودل الشبكة `MMC_Per_arm_outer_v5_G2_tests`
+# Original (historical) grid-model baseline — before the corrected three-case experiment
 
-**المصدر:** `grid_base.mat` (تشغيل 11 نوفمبر 2026، 18:48، StopTime = 3.2 s، Ts = 10 µs، Ts_ctrl = 100 µs). 19 إشارة من `logsout`.
-**النظام:** 800 V، N = 8 لكل ذراع، C = 2.2 mF، Larm = 5 mH، شبكة 230 V / 50 Hz، fsw = 1250 Hz لكل SM.
-**الاختبار:** P* من 0 إلى 1500 W بمنحدر، ثم درج +250 W عند 0.6 / 1.0 / 1.4 / 1.8 s، عودة إلى 1500 W عند 2.2 s، حمل 1 عند 2.4 s، حمل 2 بين 2.7 و 3.0 s.
-**ملاحظة:** في هذا التشغيل الموازنة مفعّلة (k_v = 0.2) وكل المكثفات تبدأ عند 100 V. لا يوجد بعد تشغيل k_v = 0 ولا اختلال ابتدائي.
+**Source:** `grid_base.mat`, 11 November 2026, 18:48; stop time 3.2 s, plant step 10 µs, arm controller step 100 µs, 19 logged `logsout` signals.
 
-## الحالة المستقرة (آخر 100 ms من كل مستوى)
+**Plant:** Vdc=800 V, 8 SMs/arm, Csm=2.2 mF, Larm=5 mH, 230 V RMS 50 Hz grid and 1,250 Hz SM switching carriers.
 
-| P* (W) | P measured (W) | Î_ac (A) | THD_i (%) | ΔVc upper (V) | ΔVc lower (V) | ΔVc analytical (V) | Error U / L | Max inst. spread U / L (V) |
-|---|---|---|---|---|---|---|---|---|
-| 1500 | 1505 | 9.21 | 5.17 | 4.98 | 5.13 | 5.07 | −1.8 % / +1.2 % | 0.39 / 0.40 |
-| 1750 | 1748 | 10.69 | 4.29 | 5.79 | 5.81 | 5.89 | −1.7 % / −1.3 % | 0.45 / 0.47 |
-| 2000 | 2001 | 12.23 | 3.54 | 6.64 | 6.61 | 6.73 | −1.3 % / −1.8 % | 0.51 / 0.51 |
-| 2250 | 2248 | 13.74 | 2.93 | 7.43 | 7.44 | 7.56 | −1.8 % / −1.6 % | 0.54 / 0.52 |
-| 2500 | 2457 (حدّ التيار) | 15.01 | 2.87 | 8.12 | 8.16 | 8.26 | −1.8 % / −1.3 % | 0.61 / 0.57 |
+**Test:** ramp P* from 0 to 1,500 W, then request +250 W increments at 0.6/1.0/1.4/1.8 s; return to 1,500 W at 2.2 s; switch the first PCC load at 2.4 s and the second between 2.7 and 3.0 s.
 
-- ΔVc = تموج قمة-قمة لمتوسط الذراع، متوسط خمس دورات. التحليلي: تموج طاقة الذراع p_u = (Vdc/2 − v_ac)(i_ac/2 + P/Vdc)، محسوب بـP و V̂ المقيسين.
-- THD_i: تيار المحوّل قبل مكثف الفلتر، كامل النطاق حتى 50 kHz. عند 1500 W: توافقيات 2–40 = 3.5 % (h3 2.1 %، h9 2.0 %، h5 1.4 %)، بين-توافقيات تحت 2 kHz = 3.2 %، نطاق 10 kHz = 2.5 %.
-- الفرق بين متوسطات الـ20 ms للـSM: ≤ 0.10 V بعد 0.35 s في الذراعين (المتوسط 0.04 V)، أي تحت الـdeadband (0.1 V).
-- متوسط جهد الذراع: 99.91 إلى 100.09 V. cos φ = 1.000، |Q| ≤ 12 var.
-- التيار الدوّار: DC = P/Vdc (1.89 إلى 3.12 A)، مركّبة 100 Hz ≤ 0.02 A.
-- تردد التبديل الفعلي: 1253 إلى 1256 Hz لكل SM. m_arm بين 0.07 و 0.92.
+**Important:** this older baseline had **k_v=0.2, all capacitors initialized to 100 V, I_max=15 A, and no reference slew limit after startup**. It does *not* include the disabled-balancing A1 or initial-mismatch A2 cases, and is *not* interchangeable with the corrected A3 dataset.
 
-## العابر
+## Steady state — last 100 ms of each power level
 
-- **قفزات +250 W:** تجاوز P = 44 إلى 57 % من القفزة، القمة عند +25 ms، ضمن 2 % بعد نحو 34 ms. متوسط الذراع السفلي يهبط 2.2 إلى 2.5 V، والعلوي 0.45 إلى 0.77 V.
-- **قفزة −1000 W عند 2.2 s:** P يهبط إلى 1023 W. Vc السفلي يصل 111.65 V (+11.6 %)، طاقة الذراع السفلي 109.6 J (+24.6 %)، العلوي لا يتجاوز 104.1 V. مجموع طاقة الذراعين من 176 إلى 200 J. العودة ضمن ±0.5 V بعد 154 ms (علوي) و 271 ms (سفلي).
-- **تبديل الأحمال عند PCC:** P بين 1485 و 1518 W، انحراف متوسط الذراع ≤ 0.25 V.
-- **الإقلاع:** الفرق بين المتوسطات يصل 0.50 V عند 0.17 s ثم ينزل تحت 0.1 V عند 0.27 s.
-- الفرق بين الـSM داخل الذراع لم يتأثر بحدث 2.2 s (أقصاه 0.097 V).
+| P* (W) | Measured P (W) | AC current peak (A) | Reported converter-current full-band THD (%) | Upper Vc arm-mean ripple (Vpp) | Lower Vc arm-mean ripple (Vpp) | Analytical ripple (Vpp) | Upper/lower analytical error | Max instantaneous upper/lower SM spread (V) |
+|---:|---:|---:|---:|---:|---:|---:|---|---|
+| 1,500 | 1,505 | 9.21 | 5.17 | 4.98 | 5.13 | 5.07 | -1.8% / +1.2% | 0.39 / 0.40 |
+| 1,750 | 1,748 | 10.69 | 4.29 | 5.79 | 5.81 | 5.89 | -1.7% / -1.3% | 0.45 / 0.47 |
+| 2,000 | 2,001 | 12.23 | 3.54 | 6.64 | 6.61 | 6.73 | -1.3% / -1.8% | 0.51 / 0.51 |
+| 2,250 | 2,248 | 13.74 | 2.93 | 7.43 | 7.44 | 7.56 | -1.8% / -1.6% | 0.54 / 0.52 |
+| 2,500 | 2,457 (15 A limit) | 15.01 | 2.87 | 8.12 | 8.16 | 8.26 | -1.8% / -1.3% | 0.61 / 0.57 |
 
-## مشاكل مكتشفة
+- Vc ripple = arm-mean capacitor voltage peak-to-peak, averaged over five fundamental cycles. Analytical model uses `p_upper = (Vdc/2 - v_ac) * (i_ac/2 + P/Vdc)`.
+- The old-run THD was calculated from the high-rate **converter current before the filter capacitor**, covering frequencies up to 50 kHz; at 1,500 W the original notes report harmonics 2–40 = 3.5% (h3 2.1%, h9 2.0%, h5 1.4%), interharmonics below 2 kHz = 3.2%, and content around 10 kHz = 2.5%. These details cannot be inferred from the later 100 µs sampled dataset.
+- Spread among SM voltages **after individual 20 ms moving averages** <= 0.10 V beyond 0.35 s, mean ~0.04 V. Distinguish this from instantaneous PWM ripple and arm-mean Vc ripple.
+- Mean arm capacitor voltages 99.91–100.09 V; reported power factor ~1, |Q| <= 12 var.
+- Circulating current DC component P/Vdc ~1.89–3.12 A, 100 Hz component <=0.02 A.
+- Actual switching frequencies were reported ~1,253–1,256 Hz per SM; arm modulation reference 0.07–0.92.
 
-1. **تشبع حدّ التيار:** I_max = 15 A في `mmc_outer_ctrl`، و2500 W تحتاج 15.3 A. القدرة الفعلية 2457 W.
-2. **قفزة 111.65 V:** الـfeed-forward للتيار المستمر في B2 يستعمل P_meas (متوسط 20 ms)، فيتأخر دخل الـDC نحو 20 ms عن خرج الـAC. الفائض نحو 24 J.
-3. **تجاوز P:** نفس السبب (P* غير محدود المعدل بعد الإقلاع، والخطأ محسوب على قياس متأخر).
-4. `iacref_UPPER` و `iacref_LOWER` متطابقان تماماً (فرق = 0) لأن القائدين يقرآن نفس القياس في المحاكاة.
-5. fsw = 25 × f0 بالضبط: الحوامل متزامنة مع الشبكة.
+## Transient response in the earlier run
 
-## ما ينقص للورقة
+- +250 W steps: power overshoot **44–57% of the 250 W change** around 25 ms after each transition, then within 2% of setpoint by about 34 ms. Lower arm-mean Vc dipped by 2.2–2.5 V, upper by 0.45–0.77 V.
+- -1,000 W change at 2.2 s: measured P dipped to 1,023 W; lower arm capacitor voltage peaked at **111.65 V** (+11.6%) and energy reached **109.6 J** (+24.6%), while upper voltage remained <= 104.1 V. Total arm energy spanned roughly 176–200 J. Return to ±0.5 V after ~154 ms upper and ~271 ms lower.
+- PCC load switching: converter power ~1,485–1,518 W; arm-mean capacitor voltage excursion <=0.25 V.
+- During startup SM mean spread peaked ~0.50 V at 0.17 s and dropped below 0.1 V by 0.27 s. The spread between SM means stayed <=0.097 V during the 2.2 s event.
 
-- تشغيل `k_v = 0` (عزل دور التوافق).
-- تشغيل باختلال ابتدائي (مثلاً HB_u3 = 110 V، HB_u6 = 90 V).
-- قرار بشأن I_max وتحديد معدل P*، ثم إعادة تشغيل الحالة الأساسية.
+## Diagnosed problems in this old baseline
+
+1. Current limit **I_max=15 A** was below the approximately 15.3 A needed at the 2,500 W target; measured power remained ~2,457 W.
+2. Excessive 111.65 V transient: the DC-side feedforward in energy-control block B2 used a 20 ms averaged P_measured, lagging AC-side power by ~20 ms, with around 24 J energy surplus.
+3. Power overshoot was aggravated by the same delayed measurement and unslewed P* reference.
+4. `iacref_UPPER` and `iacref_LOWER` were numerically identical because the arm leaders read the same measurement in simulation; this is not proof of fault-tolerant independence.
+5. Carrier f_sw was an exact 25× fundamental-frequency multiple, implying deterministic carrier/grid synchronism.
+
+## Follow-up actions subsequently implemented
+
+- Test `k_v=0` to isolate neighbor balancing.
+- Apply ±10 V initial SM mismatch in A2.
+- Raise I_max to 17 A and implement P-reference slew limiting in the corrected three-case models.
+
+The corrected outputs are documented in [the revised grid results](../grid_base_results.md); do **not** cite this earlier baseline's 111.65 V transient as the behavior of the corrected A3 case.
+
+See the [historical-figure guide](README.md) for descriptions of the five NVB supplementary plots.

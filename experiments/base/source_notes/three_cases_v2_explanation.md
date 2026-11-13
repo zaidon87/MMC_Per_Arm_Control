@@ -1,33 +1,48 @@
-# الحالات الثلاث — الإصدار 2 (مبني مباشرة على `MMC_Per_arm_outer_v5_G2_tests.slx` الذي يعمل عندك)
+# Three-case model construction, revision 2 — historical engineering notes
 
-**التاريخ:** 2026-11-11 · **يحل محل** الإصدار الأول (ملفات `case1/2/3` السابقة — لا تستعملها).
+**Date:** 11 November 2026.
 
-## 1. لماذا كانت نتائج الإصدار الأول خاطئة
-مقارنة حرفية بين ملفك وملفاتي: ملفك `_tests` = نسختي `_tests` بعد تشغيل ناجح في MATLAB (حدود الـ Scopes الآلية داخله: `i_u/i_l` بين −7.6 و+13 A، `P` حتى 2.8 kW، تيارات اختبار الحمل حتى 19 A — كلها معقولة). ملفات الحالات السابقة كانت `_tests` + أربع إضافات: بلوك **Rate Limiter** على مسار `Pstar_ref`، scope انتشار (MinMax)، تعديل `I_max/P_max`، وتسجيل السكربت بأزمنة عيّنة مفروضة.
-في الصور ينفلت تيار الذراع **منذ t = 0** — قبل تفعيل P* عند 0.15 s — أي أن حلقة التيار نفسها غير مستقرة، وهذا لا يفعله تعديل كسب ولا scope. التفسير المتّسق الوحيد: مسار `Pstar_ref` صار يحمل زمن عيّنة غير `Ts_ctrl` (بلوك Rate Limiter يرث زمن العيّنة؛ في الحالتين 1 و2 مصدره ثابت)، فتجري chart الـ Outer Loop بالمعدّل الأسرع، وتتبعها Inner Loop لأن مداخلها منه — والكود كله مبني على `Ts = 100 µs`: مكاملات ورنّانات بعشرة أضعاف الكسب → انفلات فوري. لا أستطيع تأكيد ذلك بلا MATLAB، لذلك أزلتُ السبب المحتمل كلياً بدل الرهان عليه.
+**Starting point:** `MMC_Per_arm_outer_v5_G2_tests.slx` was the user's working source model. Revision 2 superseded the first trial versions of `case1_kv0`, `case2_imbalance`, and `case3_base`. Use the **corrected** models and `three_cases_results.mat`, not the invalid earlier exports.
 
-## 2. ما الذي تغيّر في الإصدار 2
-**لا بلوك جديد إطلاقاً.** كل ملف = ملفك `_tests` + تعديلات نصّية فقط:
+## 1. Why the first trial set failed
 
-| التعديل | الملفات | التفصيل |
+The initial case variants diverged at t=0, even before active-power ramp-up near t=0.15 s. Their arm-current traces were therefore inconsistent with the source model's working behavior. That first trial introduced a rate-limiter block in the P* signal path, a MinMax spread scope, higher current/power limits and altered logging rates. A plausible diagnosis was inherited signal sample timing: the outer and inner MATLAB Function controllers used `Ts=100 µs` for integrators/resonant states but might have been evaluated at the plant's `10 µs` rate, effectively scaling integration dynamics by a factor of ten.
+
+**Important qualification:** this was an engineering hypothesis based on archive comparison, **not a proven root cause from a MATLAB execution trace**. Revision 2 removed the additional rate limiter and moved the slew logic inside the controller where its sample interval is defined.
+
+## 2. What changed in revision 2
+
+Each case is based on the working `_tests` model with minimal differences.
+
+| Change | Cases | Exact modification |
 |---|---|---|
-| `I_max` 15 → 17 A، `P_max` 3000 → 2500 W | الثلاثة (chart الـ Outer Loop في القائدين) | نفس القرار السابق ومبرّراته (هامش التعديل m ≈ 0.96 عند 2500 W) |
-| حدّ معدل P* **داخل الكود** | الثلاثة | `P_SLEW = 5000` W/s؛ حالة جديدة `P_lim` تتحرك نحو `Pstar` بحد أقصى `P_SLEW·Ts` كل خطوة، وتدخل مكان `Pstar` في حصر `P_max`. Ts معروف داخل الكود → لا غموض في زمن العيّنة |
-| `k_v = 0` | الحالة 1 (16 chart) | تعطيل الموازنة المحلية |
-| `Vc_Initial` لـ HB_u3 / HB_u6 → `Vc0_u3` / `Vc0_u6` | الحالة 2 | `Vc0_u3 = 110; Vc0_u6 = 90;` في callbacks |
-| Manual Switch أسفل (`CurrentSetting = 0` = `Pstar` ثابت) | الحالتان 1 و2 | السلّم غير مختار |
-| `t_load1 = 10; t_load2 = [10 11];` | الحالتان 1 و2 | الحمل خارج زمن المحاكاة |
-| StopTime 3.2 → 2 s | الحالتان 1 و2 | |
+| Current and power limits | All three | `I_max: 15→17 A`; `P_max: 3000→2500 W`, in both arm leaders |
+| Internal P reference slew | All three | `P_SLEW = 5000 W/s`; persistent `P_lim` approaches P* by at most `P_SLEW*Ts_ctrl` each controller update |
+| Disable local balancing | A1 | Set `k_v=0` in all 16 local SM control functions |
+| Introduce capacitor mismatch | A2 | Upper SM3/SM6 initial-voltage parameters `Vc0_u3=110`; `Vc0_u6=90` |
+| P reference selection | A1 and A2 | Set manual P-switch to a constant P* instead of staircase |
+| Disable load switching during shorter runs | A1 and A2 | `t_load1=10`; `t_load2=[10 11]` (outside simulation interval) |
+| Simulation stop time | A1 and A2 | 3.2→2 s |
 
-أجزاء الأرشيف المتغيّرة: الحالة 1: 21 (18 chart + root + config + callbacks)، الحالة 2: 5، الحالة 3: **3 فقط** (chartا القائدين + callbacks). بنية الجذر مطابقة لملفك حرفياً باستثناء سطر `CurrentSetting` وقيمتَي `Vc_Initial`.
+Archive comparison reported 21 changed entries for A1 (including the 16 SM controllers and root/config/callback edits), five for A2, and three for A3 (two arm leaders and callbacks). The aim was to preserve the model topology, not to restructure the circuit.
 
-## 3. التشغيل
-1. ضع `MMC_Per_arm_outer_v5_G2_case1_kv0.slx`, `..._case2_imbalance.slx`, `..._case3_base.slx`, `run_three_cases.m` (v2)، و`export_all_results.m` في مجلد واحد.
-2. **اختبار سريع قبل السكربت:** افتح `..._case3_base.slx` وشغّله يدوياً وانظر إلى `Overview`: يجب أن يطابق تشغيلك الناجح لـ `_tests` حتى 0.6 s (قبل أول درجة)، ثم تظهر الدرجات بمنحدرات 50 ms. إن انفلت التيار من t = 0 هنا أيضاً فالخلل ليس في بلوكاتي بل في تعديل الكود (`P_lim`) — أرسل نص أي تحذير/خطأ وسأصحّحه فوراً.
-3. شغّل `run_three_cases` ثم `export_all_results`. التسجيل الآن **يرث زمن عيّنة الإشارة** (بلا أزمنة مفروضة) مع تقسيم 10 لإشارات `Ts`.
+## 3. How to execute the corrected cases
 
-## 4. المتوقع (كما في الإصدار الأول — لم يتغيّر)
-- الحالة 1: انتشار الذراع ≈ 5 V/s بلا سقف؛ P غير متأثرة.
-- الحالة 2: 20 V تبقى حتى يبدأ التيار (~0.17 s)، ثم < 1 V عند ≈ 0.26 s.
-- الحالة 3: خطأ < 1 % في كل المستويات بما فيها 2500 W، تجاوز < 25 W لكل درجة، `P_grid` = +1500 → +500 → −500 → +500 W.
-معايير القبول وجدول التشخيص في مستند الإصدار الأول (§4–§5) ما زالت سارية.
+1. Place `MMC_Per_arm_outer_v5_G2_case1_kv0.slx`, `MMC_Per_arm_outer_v5_G2_case2_imbalance.slx`, `MMC_Per_arm_outer_v5_G2_case3_base.slx`, `run_three_cases.m` (revision 2), and `export_all_results.m` in a single MATLAB working directory.
+2. Open `case3_base.slx` and run it separately before batch processing. It should follow the original working `_tests` baseline up to ~0.6 s, with each later +250 W reference change occurring over ~50 ms.
+3. Run `run_three_cases` then `export_all_results`. Recorded signal rates are inherited from the source timeseries, with a factor-of-ten decimation for nominal 10 µs signals in the archived results.
+4. Keep original raw output files and compare derived plots by timestamp and metric definition before replacing them.
+
+## 4. Expected behavior at the design stage (predictions, not measured results)
+
+At the time revision 2 was prepared, the initial expectations were:
+
+- A1: capacitor-voltage dispersion might drift at several volts per second without balancing while P regulation stays stable.
+- A2: 20 V initial mismatch would remain until the AC current starts near 0.17 s, then settle to <1 V after ~0.26 s.
+- A3: <1% steady power error through 2,500 W, <25 W overshoot per +250 W step, and estimated PCC grid powers +1500→+500→-500→+500 W.
+
+**These were design expectations and are not authoritative recorded values.** In particular, the later measured A2 had a rapid initial drop below 1 V at ~46 ms followed by a separate startup recovery; measured A3 overshoot was **29–43 W**, not the predicted <25 W. For final measured results, use [the corrected case analysis](grid_base_results.md), [measurements](three_cases_metrics.txt) and [the figure-by-figure protocol](../figures/README.md).
+
+## Limitations
+
+No additional MATLAB or HIL simulation was run for this translation. The documented source code is inside the Simulink model; these notes do not validate real-time, embedded, communication or hardware safety performance.

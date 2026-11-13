@@ -2,7 +2,7 @@
 
 The images below are **unchanged, byte-for-byte PNG exports** from the user's previously uploaded experiment archives. Their original basenames and relative folders are retained. The descriptions distinguish recorded simulation plots, supplemental analyses, and reduced-model *expectations*.
 
-See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**. See [Aligned-delay figure methods](../experiments/aligned/figures/README.md) for step-by-step explanations of each aligned PNG.
+For a test method and conclusion **under every image**, see [base figure guide](../experiments/base/figures/README.md), [aligned-delay figure guide](../experiments/aligned/figures/README.md) and [historical/reduced-order figure guide](../experiments/base/source_notes/nvb/README.md). See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**. See [Aligned-delay figure methods](../experiments/aligned/figures/README.md) for step-by-step explanations of each aligned PNG.
 
 | Group | Image (opens original) | Content / purpose |
 |---|---|---|
