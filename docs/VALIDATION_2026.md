@@ -1,5 +1,8 @@
 # MMC research validation (13 November 2026)
 
+**[Open the illustrated gallery of all 11 cases and 27 original figures](EXPERIMENT_GALLERY.md).**
+
+
 This note documents **recorded simulation results**, not a new MATLAB/HIL execution. The plant is a grid-connected single-phase MMC: **8 half-bridge submodules per arm (16 total)**; Vdc=800 V; nominal Vc=100 V; Csm=2.2 mF; Larm=5 mH; Rarm=0.5 Ω; grid=230 V RMS, 50 Hz; carrier=1,250 Hz/SM; simulation step=10 µs; arm control step=100 µs.
 
 ## Architecture

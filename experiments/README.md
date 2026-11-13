@@ -1,15 +1,13 @@
-# Research experiment assets — binary import status
+# Recorded MMC experiments
 
-This directory is **reserved for the complete supplemental research archive** created from the uploaded MATLAB/Simulink experiments (8 .slx models, 3 .mat datasets, plots, scripts and notes). Connector-level updates have added the documentation to GitHub, but **the binary source assets are not claimed uploaded until verified in GitHub's tree**.
+**[Illustrated experiment gallery](../docs/EXPERIMENT_GALLERY.md)** · **[27-original-figure catalog](../docs/FIGURE_CATALOG.md)** · **[Dataset and reproduction notes](../docs/REPRODUCE_RECORDED_DATA.md)**
 
-Import the provided complete archive by merging its contents into a local GitHub clone and committing/pushing. Target locations:
+| Folder | Cases | Assets online |
+|---|---:|---|
+| `base/` | 3 | 13 original PNG plots and 5 supplementary PNG plots under `base/source_notes/nvb/` |
+| `followup/` | 4 | Comparative plots located in `aligned/figures/`; no dedicated PNG set in uploaded follow-up material |
+| `aligned/` | 4 | 9 original PNG plots covering aligned cases and cross-case comparisons |
 
-- `model/MMC_Per_arm_outer_v5_G2_tests.slx`
-- `experiments/base/models/`, `experiments/base/scripts/`, `experiments/base/data/`, `experiments/base/figures/`
-- `experiments/followup/data/followup_results.mat`
-- `experiments/aligned/models/`, `experiments/aligned/scripts/`, `experiments/aligned/data/`, `experiments/aligned/figures/`
-- `docs/` and `scripts/` for supplementary methods and checkers.
+**All 27 original PNG figures are now available in this GitHub repository.** The eight newly supplied `.slx` variants and three `.mat` datasets have been retained in the offline supplement; they must be imported separately before rerunning and before calling this a fully reproducible source checkout. The previous original `model/MMC_Per_arm_outer_v5_G2.slx` remains available.
 
-Existing `model/MMC_Per_arm_outer_v5_G2.slx`, `src/`, `docs/Arm_control.pptx` and the MIT LICENSE should be retained. Simulink-generated `*.slxc` and `slprj/` are excluded.
-
-See [experiment summary](../docs/VALIDATION_2026.md).
+The 11 recorded cases consist of three base tests, four follow-up tests, and four aligned tests. Match cases by the MATLAB `R` array indices documented in [the gallery](../docs/EXPERIMENT_GALLERY.md). The original source does not include the four follow-up standalone Simulink model variants. 

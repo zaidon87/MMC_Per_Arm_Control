@@ -1,101 +1,75 @@
-# MMC Per-Arm Control
+# MMC Per-Arm Control — Experimental Validation
 
-A **single-phase, grid-connected Modular Multilevel Converter (MMC)** simulation with **independent upper- and lower-arm leaders** and **local submodule capacitor-voltage balancing**.
+A **single-phase grid-connected Modular Multilevel Converter (MMC)** with independent upper/lower arm leaders, local neighbor-based capacitor-voltage balancing, and phase-shifted PWM.
 
-**Architecture:** distributed **per-arm** control, not fully decentralized control. Each arm leader calculates its own modulation index and sends it to the submodules in that arm.
+![MMC base experiments — overview](experiments/base/figures/grid_all_cases.png)
 
-![Model overview](results/simulink_thumbnail.png)
+**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
 
 ## Control architecture
 
 ```text
-         PCC measurements + P* / Q*
-                     |
-           +---------+---------+
-           |                   |
-     Upper Arm Leader    Lower Arm Leader
-       Outer + Inner       Outer + Inner
-           |     < W_arm >      |
-           |    (100 us delay)  |
-           v                   v
-       8 local SMs          8 local SMs
-   Neighbor balancing   Neighbor balancing
-        + PS-PWM             + PS-PWM
+                      Grid / PCC measurements
+                       P*, Q*, Vdc, currents
+                               |
+                  +------------+------------+
+                  |                         |
+             Upper arm leader         Lower arm leader
+             PLL, P/Q, energy,       PLL, P/Q, energy,
+              inner current           inner current
+                  |     <-- W_arm -->        |
+                  |      (100 us)           |
+                  v                         v
+             8 local SMs                8 local SMs
+           Neighbor balancing        Neighbor balancing
+                + PS-PWM                  + PS-PWM
+                  |                         |
+              Gate signals              Gate signals
 ```
 
-- **Outer loop (per arm):** SOGI-PLL, P/Q measurement and regulation -> `i_ac_ref`, grid angle and amplitude.
-- **Inner loop (per arm):** arm-energy estimation, total/differential energy control, PI + resonant arm-current control -> `m_arm`.
-- **Local SM control (each submodule):** neighbor-voltage balancing and phase-shifted carrier PWM -> half-bridge gate signals.
-- **Arm-to-arm communication:** exchange of the arm-energy value `W_arm` with a modeled one-sample (100 us) delay.
+Two arm leaders independently compute their modulation references. Each SM uses neighbor capacitor-voltage differences to adjust its own PWM duty. The **Simulink neighbor vector** is a simulation abstraction, not demonstrated packet-level communication; therefore this is *distributed per-arm control with local balancing*, not proven fully decentralized hardware.
 
-## Model configuration
+## Nominal model
 
 | Parameter | Value |
-|:--|--:|
-| Submodules | 8 per arm (16 total) |
-| DC link / nominal SM voltage | 800 V / 100 V |
+|---|---:|
+| DC link / nominal SM capacitor | 800 V / 100 V |
+| Submodules | 8 per arm, 16 total |
 | SM capacitance | 2.2 mF |
-| Arm inductance / resistance | 5 mH / 0.5 ohm |
+| Arm inductance / resistance | 5 mH / 0.5 Ω |
 | Grid | 230 V RMS, 50 Hz |
-| Power set-points | 1500 W / 0 var |
-| SM switching carrier | 1250 Hz |
-| Local SM / arm-leader sample time | 10 us / 100 us |
+| Carrier per SM | 1,250 Hz |
+| Simulation / arm control | 10 µs / 100 µs |
+| Baseline P* / Q* | 1,500 W / 0 var |
 
-These are the values extracted from the supplied Simulink model. Individual control gains are inside its MATLAB Function blocks.
+## Experiment groups
 
-## Files
+| Group | Cases | Primary purpose | Gallery |
+|---|---:|---|---|
+| **A: Base converter operation** | 3 | Balancing OFF, initial mismatch, power/load staircase | [A1–A3](docs/EXPERIMENT_GALLERY.md#a-base-model-and-converter-performance-3-cases) |
+| **B: Local correction and fresh-own delay** | 4 | Clipped duty, no-delay reference, 0.2/1.0 ms unaligned delay | [B1–B4](docs/EXPERIMENT_GALLERY.md#b-balancing-correction-and-fresh-own-sample-delay-4-cases) |
+| **C: Timestamp-aligned delay** | 4 | Aligned 0.2/1.0/1.4/5.5 ms, stability and deadband effects | [C1–C4](docs/EXPERIMENT_GALLERY.md#c-time-aligned-neighbor-voltage-delay-4-cases) |
 
-```text
-MMC_Per_Arm_Control/
-├── model/
-│   └── MMC_Per_arm_outer_v5_G2.slx   # Original Simulink model
-├── src/                            # MATLAB Function block snapshots
-│   ├── mmc_outer_ctrl.m
-│   ├── mmc_energy_estimation.m
-│   ├── mmc_energy_balancing.m
-│   ├── mmc_inner_current.m
-│   ├── mmc_arm_modulation.m
-│   ├── hb_sm_local_ctrl.m
-│   ├── get_neighbors.m
-│   └── meas_avg.m
-├── docs/
-│   └── Arm_control.pptx            # Architecture and future work
-├── results/
-│   ├── scope_overview.png
-│   └── simulink_thumbnail.png
-└── README.md
-```
+![Matched fresh-versus-aligned delay comparison](experiments/aligned/figures/figC_aligned_delay.png)
 
-## Open and run
+**Central finding:** unaligned neighbor measurements at 0.2 ms yield **~21.1%** low-order current THD; an aligned 0.2 ms version gives **~5.1%**. At 1.0 ms the unaligned case diverges while the aligned version stays bounded (THD **~5.0%**). A clipped initial-mismatch case at 1.4 ms aligned delay converges, while 5.5 ms exhibits a bounded ~26 Hz oscillation. These results apply to the archived simulations and analysis windows, not verified hardware.
 
-1. Use MATLAB/Simulink (the supplied model was saved with **R2024a**), including the required Simscape Electrical / Specialized Power Systems components.
-2. Open `model/MMC_Per_arm_outer_v5_G2.slx`.
-3. Run the simulation and inspect the scopes for PCC power, arm currents and capacitor voltages.
+## Files and reproduction
 
-The model contains its own parameter initialization callbacks. The `src/` files are **readable snapshots** of code embedded in the model, not automatically linked external dependencies: editing them alone does not update the `.slx` blocks.
+- `model/MMC_Per_arm_outer_v5_G2.slx` — original published model (preserved).
+- `src/` — readable original MATLAB Function snapshots; editing snapshots does **not** modify blocks embedded inside a `.slx`.
+- `docs/Arm_control.pptx` — original conceptual architecture presentation (preserved).
+- `experiments/base/figures/` and `experiments/aligned/figures/` — original published PNG plots.
+- `experiments/base/source_notes/nvb/` — supplementary published analysis plots.
+- `docs/EXPERIMENT_GALLERY.md` — 11 visual case descriptions.
+- `docs/FIGURE_CATALOG.md` — original image inventory.
+- `scripts/` — validation/import checkers.
+- **Large binary research supplements:** 8 new model variants, 3 archived MAT datasets and test runners are **not yet uploaded** here; see [import instructions](docs/IMPORT_BINARY_SUPPLEMENT.md) and [dataset schema](docs/REPRODUCE_RECORDED_DATA.md).
 
-![Captured simulation traces](results/scope_overview.png)
+## Interpretation and research limitations
 
-## Status and next steps
-
-- **Included:** 8 SM per arm, per-arm outer and inner control, energy exchange, local balancing and PWM.
-- **Recorded results:** scope plot derived from a supplied MATLAB figure, **not** a new simulation run or independent validation.
-- **Architecture presentation:** illustrates **5 SM per arm** and discusses a possible SM2 backup and future placement of inner-current control inside every SM. These are *proposals*, **not** verified capabilities of this version of the Simulink model.
-- **Not verified:** hardware/HIL operation, SM1-to-SM2 failover, communication implementation, embedded timing or fault protection.
-
-The original large `outer per arm.fig` (~99 MiB) is omitted to keep the repository lightweight; the plotted overview is included instead.
+The displayed figures are original saved simulation artifacts, not fresh runs. Instantaneous SM spread and **20 ms-averaged** voltage offset measure different behaviors. THD values here summarize harmonics **2–20** of the stored current, not full switching-frequency THD. No physical communication network, TWIST/STM32 embedded controller, OPAL-RT HIL, protection, or experimental validation is claimed.
 
 ## License
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for the full license text.
-
-## Research validation update — 13 November 2026
-
-The extended MMC test program now includes **11 recorded simulation cases**, organized in three research families: three base experiments, four follow-up experiments, and four time-aligned-delay experiments. The complete MATLAB/Simulink models, binary MATLAB datasets, figures and analysis scripts are packaged in a separate supplemental archive for importing into this repository.
-
-- [Experiment inventory and measured findings](docs/VALIDATION_2026.md)
-- [Communication delay and sample alignment](docs/DELAY_ALIGNMENT_STUDY.md)
-- [Recorded dataset structure and reproducibility](docs/REPRODUCE_RECORDED_DATA.md)
-- [Full asset import status](experiments/README.md)
-
-**Repository synchronization note:** The documentation is online; the multi-megabyte research models and datasets require an additional binary import. Until paths under `experiments/*/data` and `experiments/*/models` appear in GitHub, treat the standalone offline supplemental archive as the source of those files. Existing models and original source snapshots are preserved.
+MIT License — see [LICENSE](LICENSE). Existing repository files and license have been preserved.
