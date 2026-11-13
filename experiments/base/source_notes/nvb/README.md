@@ -1,5 +1,8 @@
 # Historical and reduced-order NVB images — detailed methods
 
+> Each original PNG has a **companion Markdown page** with its own image, experiment setup, test procedure, and recorded result. GitHub’s direct PNG preview cannot display captions; open the adjacent `.md` page to view the explanation directly under the image.
+
+
 The five original images in this folder document historical grid-case diagnostics and a reduced-order **prediction**. They must not be counted as new cases or silently mixed with the corrected 17 A, slew-limited A1–A3 simulations.
 
 **[Corrected figure guide](../../figures/README.md)** · **[Original historical measurements](grid_base_results.md)**
@@ -7,6 +10,8 @@ The five original images in this folder document historical grid-case diagnostic
 ## 1. `Fig1_overview.png` — NVB historical baseline overview (supplement)
 
 ![NVB historical baseline overview (supplement)](Fig1_overview.png)
+
+**[Open the figure with its experiment setup, test procedure and result](Fig1_overview.md)**
 
 **How the test was performed:** Use the previously archived `grid_base.mat` baseline with enabled local balancing, not the corrected T3.1–T3.3 array.
 
@@ -18,6 +23,8 @@ The five original images in this folder document historical grid-case diagnostic
 
 ![NVB historical balancing trace (supplement)](Fig2_balancing.png)
 
+**[Open the figure with its experiment setup, test procedure and result](Fig2_balancing.md)**
+
 **How the test was performed:** Inspect upper/lower SM voltage average offsets for the earlier enabled-balancing run at several power levels.
 
 **What to verify in the figure:** Apply per-SM moving averages before claiming a few-hundredths-volt residual; compare against 0.1 V deadband and current limits.
@@ -27,6 +34,8 @@ The five original images in this folder document historical grid-case diagnostic
 ## 3. `Fig3_ripple_vs_P.png` — NVB earlier analytic ripple comparison (supplement)
 
 ![NVB earlier analytic ripple comparison (supplement)](Fig3_ripple_vs_P.png)
+
+**[Open the figure with its experiment setup, test procedure and result](Fig3_ripple_vs_P.md)**
 
 **How the test was performed:** From the historical baseline, compute arm-mean Vc peak-to-peak ripple per P step and compare with energy-balance theory.
 
@@ -38,6 +47,8 @@ The five original images in this folder document historical grid-case diagnostic
 
 ![Historical 2.2 s down-step diagnostic](Fig4_step_2p2s_diagnostic.png)
 
+**[Open the figure with its experiment setup, test procedure and result](Fig4_step_2p2s_diagnostic.md)**
+
 **How the test was performed:** On the older baseline, zoom around the −1000 W power-reference drop at 2.2 s and inspect the two arm mean voltages.
 
 **What to verify in the figure:** Look for delayed DC-energy compensation and lower-arm overvoltage; compare with the corrected staircase's bounded slew.
@@ -47,6 +58,8 @@ The five original images in this folder document historical grid-case diagnostic
 ## 5. `expected_cases_1_2_reduced_model.png` — Predicted behavior from reduced-order model
 
 ![Predicted behavior from reduced-order model](expected_cases_1_2_reduced_model.png)
+
+**[Open the figure with its experiment setup, test procedure and result](expected_cases_1_2_reduced_model.md)**
 
 **How the test was performed:** Use the simplified analytical model to illustrate expected voltage-spread divergence with `k_v=0` versus controlled recovery after a mismatch.
 

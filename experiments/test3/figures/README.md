@@ -1,5 +1,8 @@
 # Figure-by-figure guide — test(3).zip archival copy
 
+> Each original PNG has a **companion Markdown page** with its own image, experiment setup, test procedure, and recorded result. GitHub’s direct PNG preview cannot display captions; open the adjacent `.md` page to view the explanation directly under the image.
+
+
 These **18 unmodified original images** are copied into this independent experiment folder from the existing GitHub blob objects. They correspond to the **three previously catalogued base experiments**. The archive is an exact repeat of `test.zip`; it does **not** add new experimental cases.
 
 ## Consistent measurement definitions
@@ -17,6 +20,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Three-case multi-panel overview](grid_all_cases.png)
 
+**[Open the figure with its experiment setup, test procedure and result](grid_all_cases.md)**
+
 **How the test was performed:** Run the three corrected base models with `run_three_cases.m`, logging voltage/current, P/Q, SM capacitor voltages, and upper/lower arm quantities. Group panels by test case.
 
 **What to verify in the figure:** Compare the capacitor-voltage spread in the disabled-balancing case against the mismatch recovery and power/load test. Keep each plot's time window and vertical scaling in mind.
@@ -26,6 +31,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 2. `grid_case1_kv0.png` — T3.1 — balancing OFF, full scope
 
 ![T3.1 — balancing OFF, full scope](grid_case1_kv0.png)
+
+**[Open the figure with its experiment setup, test procedure and result](grid_case1_kv0.md)**
 
 **How the test was performed:** Set `k_v=0` in all 16 local SM controllers. Start all capacitor voltages equally; command P*=1500 W for 2 s.
 
@@ -37,6 +44,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![T3.2 — initial mismatch, full scope](grid_case2_imbalance.png)
 
+**[Open the figure with its experiment setup, test procedure and result](grid_case2_imbalance.md)**
+
 **How the test was performed:** With `k_v=0.2`, initialize upper SM3 to 110 V and SM6 to 90 V, leaving the rest nominal. Run 2 s and log SM voltages and arm/grid currents.
 
 **What to verify in the figure:** Measure instantaneous spread; find the *last time* that spread exceeds 1 V and 0.5 V. Inspect the startup peak current as a possible saturation side effect.
@@ -46,6 +55,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 4. `grid_case3_base.png` — T3.3 — staircase and PCC-load scope
 
 ![T3.3 — staircase and PCC-load scope](grid_case3_base.png)
+
+**[Open the figure with its experiment setup, test procedure and result](grid_case3_base.md)**
 
 **How the test was performed:** Apply P*=1500→1750→2000→2250→2500→1500 W at 0.6/1.0/1.4/1.8/2.2 s. Connect 1 kW load at 2.4 s, another at 2.7 s, disconnect the second at 3.0 s.
 
@@ -57,6 +68,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Disabled versus enabled capacitor balancing](FigA_balancing_on_off.png)
 
+**[Open the figure with its experiment setup, test procedure and result](FigA_balancing_on_off.md)**
+
 **How the test was performed:** Compare case T3.1 (`k_v=0`) and enabled case T3.3 or its balanced reference (`k_v=0.2`) at overlapping time windows.
 
 **What to verify in the figure:** Compute max–min differences after applying the **same** optional 20 ms moving average separately to each SM; do not mix these with raw instantaneous spread.
@@ -66,6 +79,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 6. `FigB_initial_imbalance.png` — Initial capacitor mismatch and current stress
 
 ![Initial capacitor mismatch and current stress](FigB_initial_imbalance.png)
+
+**[Open the figure with its experiment setup, test procedure and result](FigB_initial_imbalance.md)**
 
 **How the test was performed:** Plot the 110 V / 90 V upper-SM initial condition and simultaneous upper-arm current during T3.2.
 
@@ -77,6 +92,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Power staircase overview](FigC_staircase_overview.png)
 
+**[Open the figure with its experiment setup, test procedure and result](FigC_staircase_overview.md)**
+
 **How the test was performed:** Use T3.3 and display P_ref, P_measured, arm-average capacitor voltages and/or current traces across 0–3.2 s.
 
 **What to verify in the figure:** Compare each 100 ms pre-transition steady window and transient peak around each command; check negative-step slew rate.
@@ -86,6 +103,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 8. `FigD_ripple_vs_P.png` — Capacitor ripple versus active power
 
 ![Capacitor ripple versus active power](FigD_ripple_vs_P.png)
+
+**[Open the figure with its experiment setup, test procedure and result](FigD_ripple_vs_P.md)**
 
 **How the test was performed:** For T3.3, take the last 100 ms of each steady P level and compute peak-to-peak ripple of the arm-average Vc; compare against the analytical energy-ripple estimate.
 
@@ -97,6 +116,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Focused SM voltage spread: OFF versus ON](fig1_spread_kv_on_vs_off.png)
 
+**[Open the figure with its experiment setup, test procedure and result](fig1_spread_kv_on_vs_off.md)**
+
 **How the test was performed:** Calculate `max(Vc_up,[],2)-min(Vc_up,[],2)` for T3.1 and enabled-balancing comparison, or filter each SM voltage identically before computing spread.
 
 **What to verify in the figure:** Confirm the legend and specify whether instantaneous or 20 ms moving-averaged signals were plotted.
@@ -106,6 +127,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 10. `fig2_case2_initial_imbalance.png` — Focused transient recovery from ±10 V mismatch
 
 ![Focused transient recovery from ±10 V mismatch](fig2_case2_initial_imbalance.png)
+
+**[Open the figure with its experiment setup, test procedure and result](fig2_case2_initial_imbalance.md)**
 
 **How the test was performed:** From T3.2 plot SM capacitor voltages, min–max spread and startup arm current around 0–0.3 s.
 
@@ -117,6 +140,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Measured power versus P reference](fig3_case3_staircase.png)
 
+**[Open the figure with its experiment setup, test procedure and result](fig3_case3_staircase.md)**
+
 **How the test was performed:** Run T3.3, display power command and 20 ms moving-average measured active power across each step.
 
 **What to verify in the figure:** Quantify steady-state error and maximum overshoot; account for `P_SLEW=5000 W/s` and avoid interpreting 2.3–2.4 s as settled after the −1000 W transition.
@@ -126,6 +151,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 12. `fig4_case3_load_test.png` — PCC active-power balance under load switching
 
 ![PCC active-power balance under load switching](fig4_case3_load_test.png)
+
+**[Open the figure with its experiment setup, test procedure and result](fig4_case3_load_test.md)**
 
 **How the test was performed:** During T3.3, measure or estimate converter-side P, load P, and grid P around 2.4, 2.7, and 3.0 s; use the same 20 ms averaging window.
 
@@ -137,6 +164,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![P-dependent SM capacitor ripple](fig5_case3_Vc_ripple_vs_P.png)
 
+**[Open the figure with its experiment setup, test procedure and result](fig5_case3_Vc_ripple_vs_P.md)**
+
 **How the test was performed:** Sweep the five rising P levels of T3.3; compute steady-state capacitor peak-to-peak ripple from equivalent upper/lower arm measurements.
 
 **What to verify in the figure:** Assess monotonicity of ripple versus power and avoid confusing common arm energy ripple with among-SM imbalance.
@@ -146,6 +175,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 14. `nvb/Fig1_overview.png` — NVB historical baseline overview (supplement)
 
 ![NVB historical baseline overview (supplement)](nvb/Fig1_overview.png)
+
+**[Open the figure with its experiment setup, test procedure and result](nvb/nvb/Fig1_overview.md)**
 
 **How the test was performed:** Use the previously archived `grid_base.mat` baseline with enabled local balancing, not the corrected T3.1–T3.3 array.
 
@@ -157,6 +188,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![NVB historical balancing trace (supplement)](nvb/Fig2_balancing.png)
 
+**[Open the figure with its experiment setup, test procedure and result](nvb/nvb/Fig2_balancing.md)**
+
 **How the test was performed:** Inspect upper/lower SM voltage average offsets for the earlier enabled-balancing run at several power levels.
 
 **What to verify in the figure:** Apply per-SM moving averages before claiming a few-hundredths-volt residual; compare against 0.1 V deadband and current limits.
@@ -166,6 +199,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 16. `nvb/Fig3_ripple_vs_P.png` — NVB earlier analytic ripple comparison (supplement)
 
 ![NVB earlier analytic ripple comparison (supplement)](nvb/Fig3_ripple_vs_P.png)
+
+**[Open the figure with its experiment setup, test procedure and result](nvb/nvb/Fig3_ripple_vs_P.md)**
 
 **How the test was performed:** From the historical baseline, compute arm-mean Vc peak-to-peak ripple per P step and compare with energy-balance theory.
 
@@ -177,6 +212,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 
 ![Historical 2.2 s down-step diagnostic](nvb/Fig4_step_2p2s_diagnostic.png)
 
+**[Open the figure with its experiment setup, test procedure and result](nvb/nvb/Fig4_step_2p2s_diagnostic.md)**
+
 **How the test was performed:** On the older baseline, zoom around the −1000 W power-reference drop at 2.2 s and inspect the two arm mean voltages.
 
 **What to verify in the figure:** Look for delayed DC-energy compensation and lower-arm overvoltage; compare with the corrected staircase's bounded slew.
@@ -186,6 +223,8 @@ The source runner is **[run_three_cases.m](../scripts/run_three_cases.m)**. The 
 ## 18. `nvb/expected_cases_1_2_reduced_model.png` — Predicted behavior from reduced-order model
 
 ![Predicted behavior from reduced-order model](nvb/expected_cases_1_2_reduced_model.png)
+
+**[Open the figure with its experiment setup, test procedure and result](nvb/nvb/expected_cases_1_2_reduced_model.md)**
 
 **How the test was performed:** Use the simplified analytical model to illustrate expected voltage-spread divergence with `k_v=0` versus controlled recovery after a mismatch.
 

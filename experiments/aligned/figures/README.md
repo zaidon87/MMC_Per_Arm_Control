@@ -1,5 +1,8 @@
 # Time-aligned neighbor-delay tests — figure-by-figure guide
 
+> Each original PNG has a **companion Markdown page** with its own image, experiment setup, test procedure, and recorded result. GitHub’s direct PNG preview cannot display captions; open the adjacent `.md` page to view the explanation directly under the image.
+
+
 This folder contains **nine original PNG figures** from the single-phase MMC time-aligned neighbor-consensus study. For every figure, this guide states **which experiment was run, what the plot checks, how to inspect it, and what the recorded result means**. The images have not been redrawn or altered.
 
 **[Main repository](../../../README.md)** · **[11-case gallery](../../../docs/EXPERIMENT_GALLERY.md)** · **[Dataset and metrics](../source_notes/aligned_delay_results.md)** · **[Original MATLAB test runner](../scripts/run_aligned_cases.m)**
@@ -74,6 +77,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 
 ![All four aligned-delay experiments](grid_all_aligned.png)
 
+**[Open the figure with its experiment setup, test procedure and result](grid_all_aligned.md)**
+
 **Specific readout:** The four columns are four different models, not one continuous delay sweep. Compare the same panel position across columns and use the dedicated plots for exact spread and harmonic metrics.
 
 **Test method:** run all four aligned models under the same 1.5 kW reference, logging the grid voltage/current, upper/lower arm currents, eight upper/lower capacitor voltages, measured P/Q, and modulation commands. Arrange **six measured quantities by four test columns**.
@@ -85,6 +90,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 ## 2. `grid_case1b_delay1_aligned.png` — 1.0 ms aligned communication
 
 ![Aligned 1.0 ms case](grid_case1b_delay1_aligned.png)
+
+**[Open the figure with its experiment setup, test procedure and result](grid_case1b_delay1_aligned.md)**
 
 **Specific readout:** The six panels show (clockwise from top left) AC voltage/20×current, eight lower SM capacitor voltages, P/Q, arm modulation, eight upper SM capacitor voltages and two arm currents. Compare with the 0.2 ms figure under identical axes; the 1.0 ms result is bounded only over this 2 s run.
 
@@ -98,6 +105,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 
 ![Aligned 0.2 ms case](grid_case1b_delay02_aligned.png)
 
+**[Open the figure with its experiment setup, test procedure and result](grid_case1b_delay02_aligned.md)**
+
 **Specific readout:** The blue and orange power/current traces return to repeatable periodic waveforms after startup. The eight SM capacitor lines overlap closely despite a few volts of common line-frequency ripple. Compare low-order THD with the unmatched-timestamp 0.2 ms case, not just visually.
 
 **Test method:** same balanced-start experiment, but set `ND=20` (`τ=0.2 ms`). Inspect capacitor grouping, sinusoidal grid current and the P reference tracking. Calculate harmonic 3 (150 Hz) and THD over the final 0.5 s.
@@ -109,6 +118,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 ## 4. `grid_case2_clip_delay1p4_aligned.png` — balancing recovery below the delay estimate
 
 ![Clipped mismatch, 1.4 ms aligned](grid_case2_clip_delay1p4_aligned.png)
+
+**[Open the figure with its experiment setup, test procedure and result](grid_case2_clip_delay1p4_aligned.md)**
 
 **Specific readout:** Follow the deliberately displaced SM3 and SM6 curves (upper-arm voltage panel) from 110/90 V toward the arm group. The sustained <1 V criterion must be calculated from instantaneous eight-SM spread, *not* estimated from the thickness of the lines in the plot.
 
@@ -122,6 +133,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 
 ![Clipped mismatch, 5.5 ms aligned](grid_case2_clip_delay5p5_aligned.png)
 
+**[Open the figure with its experiment setup, test procedure and result](grid_case2_clip_delay5p5_aligned.md)**
+
 **Specific readout:** Upper/lower capacitor traces, arm currents and the active-power measurement continue fluctuating after startup; this is qualitatively different from tests 2–4. Plot upper SM3 minus arm mean to separate the ~26 Hz inter-SM mode from the normal 50/100 Hz capacitor-energy ripple.
 
 **Test method:** repeat test 4 with **`ND=550` (`τ=5.5 ms`)**, keeping the same 20 V initial mismatch, `k_v` and clipping. Track spread **after 0.5 s**, the arm currents, the grid power variations, and the upper SM3 differential voltage spectrum over 1–2 s.
@@ -134,6 +147,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 
 ![Aligned waveform and THD panel](fig1_delay_fresh_vs_aligned.png)
 
+**[Open the figure with its experiment setup, test procedure and result](fig1_delay_fresh_vs_aligned.md)**
+
 **Specific readout:** Top-left shows the first 40 ms of lower-arm current; top-right the early arm-average capacitor voltage; bottom-left the final two grid-current cycles; bottom-right the reported THD bars. **No fresh-own-sample reference is visible in this saved PNG**, despite its filename.
 
 **Test method:** create a four-panel figure: (top left) lower-arm current for **0–40 ms**, (top right) arm-average capacitor voltages for **0–60 ms**, (bottom left) grid-current waveform for **1.90–1.94 s** (two 50 Hz cycles), and (bottom right) 2nd–20th harmonic THD for **1.5–2.0 s**.
@@ -145,6 +160,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 ## 7. `fig2_eq6_test.png` — delay-dependent consensus stability
 
 ![Delayed consensus bound comparison](fig2_eq6_test.png)
+
+**[Open the figure with its experiment setup, test procedure and result](fig2_eq6_test.md)**
 
 **Specific readout:** The *upper logarithmic panel* measures capacitor-voltage spread (the 1 V reference is a threshold), while the *lower panel* isolates an upper-SM relative voltage mode. Only the 1.4 ms and 5.5 ms aligned cases were present at export; the theoretical delay boundary is an interpretation rather than a directly measured switch point.
 
@@ -163,6 +180,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 
 ![All reference and aligned delay comparisons](figC_aligned_delay.png)
 
+**[Open the figure with its experiment setup, test procedure and result](figC_aligned_delay.md)**
+
 **Specific readout:** The top comparison identifies diverging early lower-arm current and the harm of mismatched timestamps; the THD bar panel quantifies lower-order harmonics; the lower panels compare mismatch recovery and relative-SM oscillation. This is the correct multi-dataset figure for a *fresh versus aligned* claim.
 
 **Test method:** combine **`followup_results.mat`** (no delay, 0.2 ms fresh, 1.0 ms fresh, clipped reference) and **`aligned_results.mat`** (four aligned runs) to make four panels:
@@ -177,6 +196,8 @@ In all six-panel figures the trace of each capacitor naturally includes line-fre
 ## 9. `figD_deadband_frozen_pattern.png` — why a residual voltage offset remains
 
 ![Residual voltage and deadband](figD_deadband_frozen_pattern.png)
+
+**[Open the figure with its experiment setup, test procedure and result](figD_deadband_frozen_pattern.md)**
 
 **Specific readout:** The left panel is each SM's voltage relative to its arm average, so a nonzero curve is not a 100 V regulation error. The right panel shows the neighbor error against the ±0.1 V deadband. A residual curve with all errors inside the band is a controller dead zone, not an unstable oscillation.
 
