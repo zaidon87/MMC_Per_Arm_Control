@@ -88,3 +88,14 @@ The original large `outer per arm.fig` (~99 MiB) is omitted to keep the reposito
 ## License
 
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for the full license text.
+
+## Research validation update — 13 November 2026
+
+The extended MMC test program now includes **11 recorded simulation cases**, organized in three research families: three base experiments, four follow-up experiments, and four time-aligned-delay experiments. The complete MATLAB/Simulink models, binary MATLAB datasets, figures and analysis scripts are packaged in a separate supplemental archive for importing into this repository.
+
+- [Experiment inventory and measured findings](docs/VALIDATION_2026.md)
+- [Communication delay and sample alignment](docs/DELAY_ALIGNMENT_STUDY.md)
+- [Recorded dataset structure and reproducibility](docs/REPRODUCE_RECORDED_DATA.md)
+- [Full asset import status](experiments/README.md)
+
+**Repository synchronization note:** The documentation is online; the multi-megabyte research models and datasets require an additional binary import. Until paths under `experiments/*/data` and `experiments/*/models` appear in GitHub, treat the standalone offline supplemental archive as the source of those files. Existing models and original source snapshots are preserved.
