@@ -6,7 +6,7 @@
 
 **Test procedure / measurements:** Compute max–min differences after applying the **same** optional 20 ms moving average separately to each SM; do not mix these with raw instantaneous spread.
 
-**Recorded result:** Disabled balancing allows inter-SM voltage drift; enabled balancing keeps moving-averaged SM differences in the few-hundredths-of-a-volt range.
+**Recorded result:** With balancing OFF, the 20 ms-averaged upper/lower SM spreads at 2.0 s are approximately 2.00/2.46 V. With neighbor balancing ON (`k_v=0.2`), they are approximately 0.02/0.04 V. This supports improved local capacitor-voltage equalization over the recorded 2 s run.
 
 **Interpretation:** These statements describe the supplied simulation and its recorded analysis. No new MATLAB or physical HIL/TWIST run was performed to produce this page. Voltage spread, arm-average ripple and low-order sampled-current THD should not be treated as interchangeable metrics.
 

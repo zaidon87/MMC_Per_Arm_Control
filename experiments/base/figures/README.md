@@ -75,7 +75,7 @@ Single-phase grid-connected MMC; 8 half-bridge SMs per arm; Vdc 800 V; Vc_nom 10
 
 **What to verify in the figure:** Compute max–min differences after applying the **same** optional 20 ms moving average separately to each SM; do not mix these with raw instantaneous spread.
 
-**Recorded outcome / interpretation:** Disabled balancing allows inter-SM voltage drift; enabled balancing keeps moving-averaged SM differences in the few-hundredths-of-a-volt range.
+**Recorded outcome / interpretation:** At 2 s, the 20 ms-averaged upper/lower inter-SM spreads are ~2.00/2.46 V without balancing versus ~0.02/0.04 V with `k_v=0.2`. This is balancing performance, not a comparison of arm-average voltage ripple.
 
 ## 6. `FigB_initial_imbalance.png` — Initial capacitor mismatch and current stress
 
@@ -87,7 +87,7 @@ Single-phase grid-connected MMC; 8 half-bridge SMs per arm; Vdc 800 V; Vc_nom 10
 
 **What to verify in the figure:** Check fast spread decay at startup and any current excursion during clipped/unclipped PWM duty saturation; note when the current reference becomes active.
 
-**Recorded outcome / interpretation:** The voltage mismatch reduces rapidly but creates a strong transient, motivating a clipped duty-correction follow-up.
+**Recorded outcome / interpretation:** Upper-SM voltage spread starts at 20 V, first crosses below 1 V at ~46 ms, and remains under 0.5 V after ~242 ms. The original *unclipped* correction causes a startup current excursion near −17.1 A; later experiments test duty-correction clipping.
 
 ## 7. `FigC_staircase_overview.png` — Power staircase overview
 

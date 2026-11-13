@@ -6,7 +6,7 @@
 
 **Test procedure / measurements:** Check fast spread decay at startup and any current excursion during clipped/unclipped PWM duty saturation; note when the current reference becomes active.
 
-**Recorded result:** The voltage mismatch reduces rapidly but creates a strong transient, motivating a clipped duty-correction follow-up.
+**Recorded result:** The upper-arm spread starts at 20 V, initially crosses below 1 V at ~46 ms and stays below 0.5 V after ~242 ms. The original *unclipped* correction produces a high startup upper-arm current of about −17.1 A, motivating correction limiting.
 
 **Interpretation:** These statements describe the supplied simulation and its recorded analysis. No new MATLAB or physical HIL/TWIST run was performed to produce this page. Voltage spread, arm-average ripple and low-order sampled-current THD should not be treated as interchangeable metrics.
 
