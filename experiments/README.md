@@ -1,6 +1,6 @@
 # Recorded MMC experiments
 
-**[Illustrated experiment gallery](../docs/EXPERIMENT_GALLERY.md)** · **[27-original-figure catalog](../docs/FIGURE_CATALOG.md)** · **[Dataset and reproduction notes](../docs/REPRODUCE_RECORDED_DATA.md)**
+**[Aligned figure-by-figure test methods](aligned/figures/README.md)** · **[Illustrated experiment gallery](../docs/EXPERIMENT_GALLERY.md)** · **[27-original-figure catalog](../docs/FIGURE_CATALOG.md)** · **[Dataset and reproduction notes](../docs/REPRODUCE_RECORDED_DATA.md)**
 
 | Folder | Cases | Assets online |
 |---|---:|---|

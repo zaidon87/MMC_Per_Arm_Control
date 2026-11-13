@@ -2,7 +2,7 @@
 
 The images below are **unchanged, byte-for-byte PNG exports** from the user's previously uploaded experiment archives. Their original basenames and relative folders are retained. The descriptions distinguish recorded simulation plots, supplemental analyses, and reduced-model *expectations*.
 
-See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**.
+See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**. See [Aligned-delay figure methods](../experiments/aligned/figures/README.md) for step-by-step explanations of each aligned PNG.
 
 | Group | Image (opens original) | Content / purpose |
 |---|---|---|
@@ -29,8 +29,8 @@ See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanat
 | Aligned | [`grid_case2_clip_delay1p4_aligned.png`](../experiments/aligned/figures/grid_case2_clip_delay1p4_aligned.png) | C3: clipped mismatch, 1.4 ms |
 | Aligned | [`grid_case2_clip_delay5p5_aligned.png`](../experiments/aligned/figures/grid_case2_clip_delay5p5_aligned.png) | C4: clipped mismatch, 5.5 ms |
 | Aligned | [`grid_all_aligned.png`](../experiments/aligned/figures/grid_all_aligned.png) | Four-case aligned overview |
-| Aligned | [`fig1_delay_fresh_vs_aligned.png`](../experiments/aligned/figures/fig1_delay_fresh_vs_aligned.png) | Unaligned B4 vs aligned C1 comparison |
-| Aligned | [`fig2_eq6_test.png`](../experiments/aligned/figures/fig2_eq6_test.png) | B1 reference vs C3/C4 convergence comparison |
+| Aligned | [`fig1_delay_fresh_vs_aligned.png`](../experiments/aligned/figures/fig1_delay_fresh_vs_aligned.png) | Aligned-only waveform and low-order THD panels in saved PNG (fresh reference absent) |
+| Aligned | [`fig2_eq6_test.png`](../experiments/aligned/figures/fig2_eq6_test.png) | C3 vs C4 convergence comparison in saved PNG (no-delay reference absent) |
 | Aligned | [`figC_aligned_delay.png`](../experiments/aligned/figures/figC_aligned_delay.png) | Fresh versus aligned delay and THD |
 | Aligned | [`figD_deadband_frozen_pattern.png`](../experiments/aligned/figures/figD_deadband_frozen_pattern.png) | Residual deadband / frozen slow mode |
 

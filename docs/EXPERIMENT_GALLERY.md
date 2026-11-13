@@ -68,7 +68,7 @@ The following **four recorded cases are in `followup_results.mat`**, but their f
 
 ![B1 and delayed clip comparison — convergence and oscillation](../experiments/aligned/figures/fig2_eq6_test.png)
 
-**Observation:** clipping prevents excessive duty-correction commands in the mismatch transient. In the recorded no-delay clipped reference, the upper spread settles below **1 V at approximately 284 ms**. **Figure note:** this comparison also plots later 1.4/5.5 ms *aligned* cases (C3/C4); do not attribute their oscillations to B1.
+**Observation:** clipping prevents excessive duty-correction commands in the mismatch transient. In the recorded no-delay clipped reference, the upper spread settles below **1 V at approximately 284 ms**. **Figure note:** this particular PNG displays only the 1.4 and 5.5 ms *aligned* cases (C3/C4); the optional no-delay B1 reference was not plotted when it was exported. Its no-delay benchmark is reported numerically and in the later composite figure.
 
 ### B2 — Local balancing enabled, no communication delay (`case1b_kv02`)
 
@@ -90,7 +90,7 @@ The following **four recorded cases are in `followup_results.mat`**, but their f
 
 **Setup:** compare `Vc_i(t)` against neighbors at `t−1.0 ms`.
 
-![B4 — unaligned 1.0 ms failure versus aligned recovery](../experiments/aligned/figures/fig1_delay_fresh_vs_aligned.png)
+![B4 — unaligned 1.0 ms failure versus aligned recovery](../experiments/aligned/figures/figC_aligned_delay.png)
 
 **Observation:** the unaligned model **runs away**, producing extreme arm current (reported up to ~845 A) and capacitor voltages of several kV; a steady-state THD is therefore **not meaningful**. This is a simulation failure mode, **not a safe hardware operating condition**. The aligned 1 ms counterpart is documented in C1.
 
@@ -146,6 +146,8 @@ With unaligned samples, common capacitor ripple is incorrectly interpreted as a 
 ![Delay study — comparative evidence](../experiments/aligned/figures/figC_aligned_delay.png)
 
 ![Deadband — frozen spatial offset after convergence](../experiments/aligned/figures/figD_deadband_frozen_pattern.png)
+
+For the **test method and a scientific caption for each of the nine aligned-delay PNGs**, see the [aligned figure guide](../experiments/aligned/figures/README.md).
 
 ## Files and limitations
 

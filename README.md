@@ -4,7 +4,7 @@ A **single-phase grid-connected Modular Multilevel Converter (MMC)** with indepe
 
 ![MMC base experiments — overview](experiments/base/figures/grid_all_cases.png)
 
-**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
+**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Read the method for each of the 9 aligned-delay figures](experiments/aligned/figures/README.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
 
 ## Control architecture
 
