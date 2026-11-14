@@ -4,7 +4,7 @@ A **single-phase grid-connected Modular Multilevel Converter (MMC)** with indepe
 
 ![MMC base experiments — overview](experiments/base/figures/grid_all_cases.png)
 
-**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Aligned-delay figures: nine methods and measured outcomes](experiments/aligned/figures/README.md)** · **[Base figures: 13 test methods](experiments/base/figures/README.md)** · **[Historical plots: five methods](experiments/base/source_notes/nvb/README.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
+**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Capacitance tolerance, saturation and THD tests](experiments/test1/README.md)** · **[Aligned-delay figures: nine methods and measured outcomes](experiments/aligned/figures/README.md)** · **[Base figures: 13 test methods](experiments/base/figures/README.md)** · **[Historical plots: five methods](experiments/base/source_notes/nvb/README.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
 
 ## Control architecture
 
@@ -62,6 +62,16 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 
 **[Browse the separate Test 3 archive (repeat of base cases)](experiments/test3/README.md)** — 18 original figures and figure-by-figure test methods; the upload is identical to the base archive and does not increase the 11 unique case count.
 
+## Capacitance-tolerance robustness: Balancing OFF versus ON
+
+![Upper-arm 20 ms mean capacitor voltages under identical, random and alternating capacitances with local balancing OFF and ON](experiments/test1/figures/ctol_C_mean_voltages_upper.png)
+
+**Test:** Four SM capacitance patterns (identical, random ±10%, random ±20%, alternating ±20%) were each simulated for 2 s at P*=1,500 W, with local neighbor balancing disabled (`k_v=0`) and enabled (`k_v=0.2`). Each of the eight submodule voltages in the upper arm was separately averaged over 20 ms.
+
+**Recorded result:** The balancing correction strongly reduces inter-SM mean-voltage divergence: worst-arm spread improves by **26.6×, 19.0×, 10.2× and 9.6×** across the four patterns. **Trade-off:** for alternating ±20% capacitors, the reported low-order grid-current THD rises to **7.27%** at `k_v=0.2`; subsequent clipping and gain-sensitivity tests reduce the distortion, with a balancing-error trade-off.
+
+**[Complete Test 1: models, data, all six original figures and per-image methods](experiments/test1/README.md)** · [Explain this comparison figure](experiments/test1/figures/ctol_C_mean_voltages_upper.md).
+
 ## Files and reproduction
 
 - `model/MMC_Per_arm_outer_v5_G2.slx` — original published model (preserved).
@@ -73,6 +83,8 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 - `docs/FIGURE_CATALOG.md` — original image inventory.
 - `scripts/` — validation/import checkers.
 - **Large binary research supplements:** 8 new model variants, 3 archived MAT datasets and test runners are **not yet uploaded** here; see [import instructions](docs/IMPORT_BINARY_SUPPLEMENT.md) and [dataset schema](docs/REPRODUCE_RECORDED_DATA.md).
+
+The new `experiments/test1/` robustness study includes its **four original Simulink models, six PNGs, scripts and MAT/CSV results online**. Earlier A/B/C model variants and datasets have a separate historical import status described above.
 
 ## Interpretation and research limitations
 

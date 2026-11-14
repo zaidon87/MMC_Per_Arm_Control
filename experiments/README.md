@@ -7,9 +7,10 @@
 | `base/` | 3 | 13 original PNG plots and 5 supplementary PNG plots under `base/source_notes/nvb/` |
 | `followup/` | 4 | Comparative plots located in `aligned/figures/`; no dedicated PNG set in uploaded follow-up material |
 | `aligned/` | 4 | 9 original PNG plots covering aligned cases and cross-case comparisons |
+| [`test1/`](test1/README.md) | 8+4+5 runs (some overlapping) | **Complete** capacitance-tolerance, saturation and THD study; 6 original PNGs, 4 SLX models, 3 MAT files, original scripts and reports |
 | [`test3/`](test3/README.md) | 0 additional | Separate archive of the same **3 base cases**, with 18 original figures and test-by-test instructions; byte-identical input ZIP |
 
-**All 27 original PNG figures are now available in this GitHub repository.** The eight newly supplied `.slx` variants and three `.mat` datasets have been retained in the offline supplement; they must be imported separately before rerunning and before calling this a fully reproducible source checkout. The previous original `model/MMC_Per_arm_outer_v5_G2.slx` remains available.
+**All 27 earlier original PNG figures plus the 6 new Test1 PNGs are now available in this GitHub repository.** The eight newly supplied `.slx` variants and three `.mat` datasets have been retained in the offline supplement; they must be imported separately before rerunning and before calling this a fully reproducible source checkout. The previous original `model/MMC_Per_arm_outer_v5_G2.slx` remains available.
 
 The 11 recorded cases consist of three base tests, four follow-up tests, and four aligned tests. Match cases by the MATLAB `R` array indices documented in [the gallery](../docs/EXPERIMENT_GALLERY.md). The original source does not include the four follow-up standalone Simulink model variants. 
 
@@ -22,3 +23,7 @@ The 11 recorded cases consist of three base tests, four follow-up tests, and fou
 - [Aligned-delay: nine original images](aligned/figures/README.md)
 - [Historical and reduced-order analysis: five original images](base/source_notes/nvb/README.md)
 - [Separate test3 archival duplicate: 18 images](test3/figures/README.md)
+
+- [Test1 robustness: 6 original figures with setup, method and result](test1/figures/README.md)
+
+**Online provenance:** The Test1 SLX/MAT/PNG files have been uploaded as their original bytes, with Git blob hashes verified. This does **not** change the historical offline-only status of the earlier base/aligned supplemental models.

@@ -1,0 +1,14 @@
+Saturation check, P* = 1.5 kW, k_v = 0.2, balanced start
+
+run                        |  THD % |  h3 (A)  h5 (A) |  imb (V) inst (V) | max |dm| |   clip % |  sum error | m_arm range
+alternating, no bound      |   7.27 |   0.484   0.367 |    0.319     1.12 |    0.185 |    13.49 |     0.0207 | 0.08 - 0.93
+alternating, bound 0.10    |   4.17 |   0.205   0.151 |    0.336     1.32 |    0.100 |     6.95 |     0.0064 | 0.08 - 0.92
+alternating, bound 0.05    |   3.32 |   0.109   0.124 |    0.457     1.58 |    0.050 |     0.00 |     0.0052 | 0.08 - 0.91
+identical, bound 0.05      |   3.25 |   0.171   0.130 |    0.096     0.45 |    0.034 |     0.00 |     0.0026 | 0.07 - 0.92
+
+imb       = largest difference between the 20 ms means of an arm, worst arm, 0.5 s to 2 s
+inst      = largest instantaneous difference in the same window
+max |dm|  = largest correction k_v*e_i*tanh(i_arm/I_s) after the bound, upper arm
+clip %    = share of samples with at least one duty cycle of the upper arm clipped at 0 or 1
+sum error = mean |sum(d_i) - N*m_arm| of the upper arm (0 when equation (4) holds)
+The last three columns are rebuilt offline from Vc_up, m_up and i_u.

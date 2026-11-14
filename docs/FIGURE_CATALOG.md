@@ -1,6 +1,6 @@
-# Original figure catalog — 27 images
+# Original figure catalog — 33 unique images
 
-The linked Markdown pages show each original image with a brief experiment setup, test method and result directly underneath. Click the image itself on the page to open the original PNG. The images below are **unchanged, byte-for-byte PNG exports** from the user's previously uploaded experiment archives. Their original basenames and relative folders are retained. The descriptions distinguish recorded simulation plots, supplemental analyses, and reduced-model *expectations*.
+This catalog includes **27 original earlier PNGs and 6 additional Test1 PNGs** (not counting the duplicated directory layout under `test3/`). The linked Markdown pages show each original image with a brief experiment setup, test method and result directly underneath. Click the image itself on the page to open the original PNG. The images below are **unchanged, byte-for-byte PNG exports** from the user's previously uploaded experiment archives. Their original basenames and relative folders are retained. The descriptions distinguish recorded simulation plots, supplemental analyses, and reduced-model *expectations*.
 
 For a test method and conclusion **under every image**, see [base figure guide](../experiments/base/figures/README.md), [aligned-delay figure guide](../experiments/aligned/figures/README.md) and [historical/reduced-order figure guide](../experiments/base/source_notes/nvb/README.md). See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**. See [Aligned-delay figure methods](../experiments/aligned/figures/README.md) for step-by-step explanations of each aligned PNG.
 
@@ -35,3 +35,14 @@ For a test method and conclusion **under every image**, see [base figure guide](
 | Aligned | [`figD_deadband_frozen_pattern.png`](../experiments/aligned/figures/figD_deadband_frozen_pattern.md) | Residual deadband / frozen slow mode |
 
 The follow-up `followup_results.mat` records four cases but does not come with four standalone source PNGs. Its relevant comparison figures are included in the **aligned** archive. The gallery identifies shared figures explicitly, rather than treating them as direct exports from a different case.
+
+## Test 1 robustness figures (six additional originals)
+
+| Group | Figure (with method and result) | Test |
+|---|---|---|
+| Test1 | [`ctol_A_comparison.png`](../experiments/test1/figures/ctol_A_comparison.md) | Capacitance tolerance: balancing OFF versus ON |
+| Test1 | [`ctol_B_imbalance_vs_time.png`](../experiments/test1/figures/ctol_B_imbalance_vs_time.md) | Capacitance tolerance: voltage imbalance versus time |
+| Test1 | [`ctol_C_mean_voltages_upper.png`](../experiments/test1/figures/ctol_C_mean_voltages_upper.md) | Upper-arm mean capacitor voltages — eight-panel comparison |
+| Test1 | [`ctol_D_capacitance_vs_voltage.png`](../experiments/test1/figures/ctol_D_capacitance_vs_voltage.md) | Assigned SM capacitances versus final upper-arm mean voltages |
+| Test1 | [`thd_check_spectrum.png`](../experiments/test1/figures/thd_check_spectrum.md) | Grid-current harmonic spectrum for alternating capacitor mismatch |
+| Test1 | [`thd_check_vs_time.png`](../experiments/test1/figures/thd_check_vs_time.md) | Sliding-window grid-current THD over time |

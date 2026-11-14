@@ -157,3 +157,16 @@ For the **test method and a scientific caption for each of the nine aligned-dela
 - **Original datasets:** `three_cases_results.mat` (A1–A3); `followup_results.mat` (B1–B4); `aligned_results.mat` (C1–C4). Dataset records, not reconstructed traces, ground the numerical results.
 - **Online availability:** Figures and documentation are committed to GitHub. Large `.mat` datasets and added `.slx` variants remain available in the [supplemental import package instructions](IMPORT_BINARY_SUPPLEMENT.md) until separately pushed to GitHub.
 - **Method:** metrics depend on finite simulation windows and controller configuration; they are not full switching-frequency THD, a formal stability proof, or proof of embedded/TWIST/HIL deployment.
+
+
+## D. New robustness study — SM capacitor tolerance, correction saturation and grid-current THD
+
+This is an **additional uploaded simulation study**, separate from the original 11-case A/B/C evaluation. It contains 8 capacitance-tolerance runs, 4 clipping runs and 5 THD/gain comparisons (with overlapping operating conditions). Its original models, datasets and images are in [**Test1**](../experiments/test1/README.md).
+
+![Upper SM mean voltages, balancing OFF vs ON](../experiments/test1/figures/ctol_C_mean_voltages_upper.png)
+
+- **Method:** Vary SM capacitances across identical, random ±10%, random ±20% and alternating ±20%; compare k_v=0 versus 0.2 over 2 s at 1.5 kW. The arm leaders continue to estimate energy using nominal 2.2 mF capacitors.
+- **Results:** worst-arm mean-voltage spread improves by 9.6×–26.6×, but alternating ±20% capacitances with k_v=0.2 raise low-order current THD to 7.27%.
+- **Follow-up:** bounded correction |Δm|≤0.10 reduces alternating-case THD to 4.17%; |Δm|≤0.05 yields 3.32%, with increased residual imbalance. Separate k_v=0.05 simulation yields 1.93% THD under alternating ±20%.
+
+[View all six original figures and individual test methods](../experiments/test1/figures/README.md). Values are recorded simulation results; they are not HIL or hardware validation.
