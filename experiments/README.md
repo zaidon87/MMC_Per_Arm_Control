@@ -1,38 +1,18 @@
-# Recorded MMC experiments
+# MMC simulation experiments — current source-of-truth
 
-**[Aligned figure-by-figure test methods](aligned/figures/README.md)** · **[Illustrated experiment gallery](../docs/EXPERIMENT_GALLERY.md)** · **[27-original-figure catalog](../docs/FIGURE_CATALOG.md)** · **[Dataset and reproduction notes](../docs/REPRODUCE_RECORDED_DATA.md)**
+This folder separates the original converter/delay studies from the **new corrected robustness experiments**. The old Test 1 capacitance-randomization and harmonic/gain plots have been superseded; their obsolete files and links are removed rather than presented as competing versions.
 
-| Folder | Cases | Assets online |
-|---|---:|---|
-| `base/` | 3 | 13 original PNG plots and 5 supplementary PNG plots under `base/source_notes/nvb/` |
-| `followup/` | 4 | Comparative plots located in `aligned/figures/`; no dedicated PNG set in uploaded follow-up material |
-| `aligned/` | 4 | 9 original PNG plots covering aligned cases and cross-case comparisons |
-| [`test1/`](test1/README.md) | 8+4+5 runs (some overlapping) | **Complete** capacitance-tolerance, saturation and THD study; 6 original PNGs, 4 SLX models, 3 MAT files, original scripts and reports |
-| [`test3/`](test3/README.md) | 0 additional | Separate archive of the same **3 base cases**, with 18 original figures and test-by-test instructions; byte-identical input ZIP |
+| Study | Data | Figures and procedure |
+|---|---|---|
+| [Base operation](base/figures/README.md) | 3 original base cases | 13 PNGs with figure-specific scientific descriptions |
+| [Follow-up and time alignment](aligned/figures/README.md) | 4 follow-up + 4 aligned cases | 9 aligned figures with method and results |
+| [Independent Test 3 archive](test3/README.md) | Duplicate of the 3 base cases, no additional scientific scenarios | 18 archived plots |
+| **[Matched-pattern capacitance tolerance](capacitance_samepattern/README.md)** | **8 saved simulations**, 4 C patterns × `k_v=0/0.2` | **4 corrected SVG figures**, A–D, derived from the newly supplied `ctol_results_samepattern.mat` |
+| **[Neighbor-gain sweep](gain_sweep/README.md)** | **12 saved simulations** | **1 new three-panel SVG**, source CSV and convergence times |
+| [Correction saturation](saturation/README.md) | 4 distinct archived saturation tests | Original clipping source, MAT report and method; does not replace the new tolerance/gain results |
 
-**All 27 earlier original PNG figures plus the 6 new Test1 PNGs are now available in this GitHub repository.** The eight newly supplied `.slx` variants and three `.mat` datasets have been retained in the offline supplement; they must be imported separately before rerunning and before calling this a fully reproducible source checkout. The previous original `model/MMC_Per_arm_outer_v5_G2.slx` remains available.
+**Scientific distinction:** A/B/C are the original 11 recorded cases. The matched-pattern and gain studies are additional, partially overlapping operating points. Never total their runs as independent random samples. All reported robustness figures are **simulations**, not power hardware or communication experiments.
 
-The 11 recorded cases consist of three base tests, four follow-up tests, and four aligned tests. Match cases by the MATLAB `R` array indices documented in [the gallery](../docs/EXPERIMENT_GALLERY.md). The original source does not include the four follow-up standalone Simulink model variants. 
+**Figure provenance:** Updated SVG figures reconstruct the uploaded MATLAB results (some curves sampled every 50 ms for legibility); they are not the original PNG pixels. Numerical summary values are read from the full MAT/CSV files. The source archives contain the MATLAB PNG, FIG, SLX, MAT and runner files; those large binaries are not claimed as hosted within the new GitHub directories.
 
-**Independent Test 3 archive:** [`experiments/test3/`](test3/README.md) keeps the repeated upload separate for navigation and provenance. It does not change the total of 11 distinct simulation cases.
-
-
-## Corrected and extended robustness studies (25 November 2026)
-
-| Folder | Recorded runs | Relationship to Test 1 |
-|---|---:|---|
-| [`capacitance_samepattern/`](capacitance_samepattern/README.md) | 8 | Fixes the comparison between random ±10% and ±20% by scaling the **same** random pattern; original Test 1 results remain separately valid for their old random realization |
-| [`gain_sweep/`](gain_sweep/README.md) | 12 | Four `k_v` settings, identical versus alternating ±20% C, plus +2/-2 V upper-arm initial mismatch convergence |
-
-Both folders currently contain **English documentation** of the supplied archive data. Their original FIG/PNG/MAT/SLX inputs are provided in a separately downloadable corrected package, rather than already committed to GitHub. Some operating points overlap with Test 1: these are not 20 statistically independent new physical experiments.
-
-## Detailed procedures under every figure
-
-- [Base: 13 original images](base/figures/README.md)
-- [Aligned-delay: nine original images](aligned/figures/README.md)
-- [Historical and reduced-order analysis: five original images](base/source_notes/nvb/README.md)
-- [Separate test3 archival duplicate: 18 images](test3/figures/README.md)
-
-- [Test1 robustness: 6 original figures with setup, method and result](test1/figures/README.md)
-
-**Online provenance:** The Test1 SLX/MAT/PNG files have been uploaded as their original bytes, with Git blob hashes verified. This does **not** change the historical offline-only status of the earlier base/aligned supplemental models.
+[Main README](../README.md) · [Figure catalog](../docs/FIGURE_CATALOG.md) · [Original 11-case gallery](../docs/EXPERIMENT_GALLERY.md).
