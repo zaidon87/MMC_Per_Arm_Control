@@ -36,13 +36,16 @@ For a test method and conclusion **under every image**, see [base figure guide](
 
 The follow-up `followup_results.mat` records four cases but does not come with four standalone source PNGs. Its relevant comparison figures are included in the **aligned** archive. The gallery identifies shared figures explicitly, rather than treating them as direct exports from a different case.
 
-## Test 1 robustness figures (six additional originals)
+## Corrected robustness figures — source archives 12(3) and 13 thadkv(3)
 
-| Group | Figure (with method and result) | Test |
+The superseded Test 1 capacitance and overlapping harmonic images have been deleted from the *current* repository. These five replacement SVG figures use newly supplied MATLAB MAT/CSV results; their curves are sampled for online display, so they are not pixel-identical to the original PNGs.
+
+| Study | Figure with method and result | Primary analysis |
 |---|---|---|
-| Test1 | [`ctol_A_comparison.png`](../experiments/test1/figures/ctol_A_comparison.md) | Capacitance tolerance: balancing OFF versus ON |
-| Test1 | [`ctol_B_imbalance_vs_time.png`](../experiments/test1/figures/ctol_B_imbalance_vs_time.md) | Capacitance tolerance: voltage imbalance versus time |
-| Test1 | [`ctol_C_mean_voltages_upper.png`](../experiments/test1/figures/ctol_C_mean_voltages_upper.md) | Upper-arm mean capacitor voltages — eight-panel comparison |
-| Test1 | [`ctol_D_capacitance_vs_voltage.png`](../experiments/test1/figures/ctol_D_capacitance_vs_voltage.md) | Assigned SM capacitances versus final upper-arm mean voltages |
-| Test1 | [`thd_check_spectrum.png`](../experiments/test1/figures/thd_check_spectrum.md) | Grid-current harmonic spectrum for alternating capacitor mismatch |
-| Test1 | [`thd_check_vs_time.png`](../experiments/test1/figures/thd_check_vs_time.md) | Sliding-window grid-current THD over time |
+| Matched capacitance | [A — spread and THD](../experiments/capacitance_samepattern/figures/ctol_A_comparison_samepattern.md) | Four C patterns, OFF/ON, 20 ms mean and instantaneous spread |
+| Matched capacitance | [B — imbalance over time](../experiments/capacitance_samepattern/figures/ctol_B_imbalance_vs_time_samepattern.md) | Both arm trajectories |
+| Matched capacitance | [C — eight upper SM voltage means](../experiments/capacitance_samepattern/figures/ctol_C_mean_voltages_upper_samepattern.md) | Corrected common random pattern at ±10/±20% |
+| Matched capacitance | [D — C against final Vc](../experiments/capacitance_samepattern/figures/ctol_D_capacitance_vs_voltage_samepattern.md) | Physical tolerances and final per-SM voltage |
+| Gain sweep | [Gain/THD/convergence](../experiments/gain_sweep/figures/kv_sweep.md) | 12 runs across k_v and initial mismatches |
+
+[Experimental index](../experiments/README.md) · [Main README](../README.md).
