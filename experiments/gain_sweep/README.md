@@ -9,6 +9,20 @@ Single-phase MMC (8 SM per arm, nominal Vdc 800 V, Vc 100 V, C=2.2 mF), 1500 W r
 - **Part A (8 runs):** identical 2.2 mF C and alternating ±20% C (1.76/2.64 mF). Start all capacitors at 100 V. Measure the maximum worst-arm max–min spread of individually trailing-20-ms-averaged SM voltages over 0.5–2.0 s. THD is limited to the 50 Hz harmonics 2–20 during 1.8–2.0 s.
 - **Part B (4 runs):** identical C, initial upper SM3=102 V and SM6=98 V. Measure when the **absolute** deviation of SM3's filtered voltage from the upper-arm average **stays** below 1 V and 0.5 V, and when upper-arm filtered spread stays below 0.5 V. This is simulated capacitor-voltage convergence, **not measured communication-consensus latency**.
 
+## Figures and numerical data available in GitHub
+
+![Effect of local gain on worst-arm filtered voltage imbalance](figures/gain_vs_imbalance.svg)
+
+**Method and finding:** Holding the physical capacitance distribution fixed for each series, sweep four gains at constant 1500 W. The alternating ±20% series reaches its lowest sampled 20 ms-mean voltage spread of **0.249 V at `k_v=0.15`**.
+
+![Effect of local gain on low-order grid-current THD](figures/gain_vs_thd.svg)
+
+**Method and finding:** Calculate THD only from 50 Hz harmonics 2–20 of logged grid current during 1.8–2.0 s. Under alternating ±20% capacitance, THD increases from **1.93% at `k_v=0.05`** to **7.27% at `k_v=0.20`**. This is not switching-frequency or full-band THD.
+
+[Gain sweep numerical CSV](data/gain_sweep_summary.csv) · [Initial-mismatch convergence CSV](data/initial_mismatch_settling.csv)
+
+These SVGs are **reconstructed from archived recorded values**, not copies of the original `kv_sweep.png`. The latter, with its three-panel comparison, and the original MATLAB model/MAT/FIG/runner are **not yet committed to GitHub**.
+
 ## Part A — Captured results
 
 | C pattern | k_v (V^-1) | Worst-arm filtered imbalance (V) | THD harmonics 2–20 |
