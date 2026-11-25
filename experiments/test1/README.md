@@ -32,6 +32,12 @@ The test sets contain some overlapping operating conditions. **Do not sum 8+4+5 
 
 For reproducible random patterns the runner uses `rng(1)`. The physical `C_u` and `C_l` are varied in each half-bridge, **but the arm leaders continue to estimate energy with the nominal 2.2 mF capacitor value**. This intentionally examines model-parameter robustness; the energy estimator is not reidentified for the true component tolerances.
 
+### Update: controlled random-pattern comparison (25 November 2026)
+
+The original D1 `random ±20%` values listed **below** came from a different random-number draw than the `random ±10%` values. Those archived results and images are preserved, but cross-magnitude conclusions from them are *confounded by random-pattern changes*. The [matched-pattern D4 extension](../capacitance_samepattern/README.md) uses the **same seeded random realization** for both tolerance magnitudes; its random ±20% worst-arm values are **3.097 V OFF and 0.171 V ON**, compared with **2.565 V OFF and 0.135 V ON** at ±10%. Do not substitute the D4 values into historical D1 figures.
+
+A separate [D5 neighbor-gain sweep](../gain_sweep/README.md) tests `k_v=0.05/0.10/0.15/0.20` and ±2 V startup convergence. It finds that the smallest sampled alternating-capacitance imbalance (0.249 V) is at `k_v=0.15`, whereas the smallest sampled THD (1.93%) is at `k_v=0.05`.
+
 ## D1 — Capacitance tolerance and voltage balancing (8 runs)
 
 The four recorded worst-arm peak spreads among 20 ms-averaged SM voltages are:
