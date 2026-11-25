@@ -12,6 +12,16 @@ The **historical random ±20% results (2.248 V OFF, 0.221 V ON)** remain correct
 
 Single-phase grid-connected MMC, 8 SM per arm, nominal Vdc=800 V, nominal SM voltage=100 V, C=2.2 mF. Four distributions (identical, matched random ±10%, matched random ±20%, alternating ±20%) × two gains (`k_v=0` and `k_v=0.2 V^-1`) = **8 saved simulations**. Run for 2 s at P*=1500 W with initially balanced 100 V SM capacitors. The 20 ms trailing mean is computed separately for every SM. The imbalance is the **maximum across t=0.5–2.0 s** of the max–min of those filtered SM voltages; report the worse arm. THD is computed from 50 Hz harmonic orders 2–20 on logged grid current during t=1.8–2.0 s. The arm-leader energy estimator retains nominal 2.2 mF despite physical C variation.
 
+## Figures and numerical data available in GitHub
+
+![Matched-pattern 20 ms-mean voltage spread: balancing OFF versus ON](figures/matched_pattern_voltage_spread.svg)
+
+**Figure method:** For each fixed physical capacitance distribution, run matched OFF (`k_v=0`) and ON (`k_v=0.2 V^-1`) cases. Filter each SM capacitor voltage individually using a trailing 20 ms window; find per-arm max–min spread, then the maximum across 0.5–2.0 s and both arms.
+
+**Recorded result:** The matched ±20% random pattern yields **3.097 V without correction and 0.171 V with correction**. The prior Test 1 random ±20% values (2.248/0.221 V) remain separate because their random draws differ. This SVG was reconstructed from the uploaded numeric summary, **not copied from the original MATLAB PNG**.
+
+[Download the numeric comparison CSV](data/verified_summary.csv). The original four MATLAB PNG figures, SLX, MAT, FIG and runner are **not yet committed to GitHub**. Figure-specific test methods for A–D are recorded below, but their original PNGs can only be viewed in the supplied source archive.
+
 ## Verified saved results
 
 | Capacitance case | Filtered imbalance OFF (V) | ON (V) | OFF/ON improvement | THD OFF | THD ON |
