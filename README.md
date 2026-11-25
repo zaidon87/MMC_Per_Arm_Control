@@ -89,6 +89,14 @@ The two new documentation pages analyze the user's supplied MAT/CSV results; ass
 
 ![Gain versus low-order grid current THD](experiments/gain_sweep/figures/gain_vs_thd.svg)
 
+![Capacitance mismatch versus low-order grid-current THD](experiments/capacitance_samepattern/figures/matched_pattern_thd.svg)
+
+**Method:** Compare OFF/ON low-order THD(2–20) for identical, matched random ±10%, matched random ±20% and alternating ±20% capacitances. **Recorded result:** THD reaches 7.27% under alternating mismatch when `k_v=0.2`.
+
+![Initial mismatch — convergence threshold times](experiments/gain_sweep/figures/gain_vs_settling.svg)
+
+**Method:** Initialize upper SM3/SM6 at 102/98 V and measure persistent absolute-error and arm-spread thresholds. **Recorded result:** upper-arm filtered spread stays below 0.5 V from 0.257 s at `k_v=0.2`, versus 0.318 s at `k_v=0.05`.
+
 **Method:** Sweep `k_v` in 0.05/0.10/0.15/0.20 V^-1 under nominal and alternating ±20% capacitances. **Result:** For alternating C, the lowest sampled filtered spread is 0.249 V at `k_v=0.15`; the lowest sampled THD(2–20) is 1.93% at `k_v=0.05`. [Full procedures and convergence data](experiments/gain_sweep/README.md).
 
 ## Files and reproduction
