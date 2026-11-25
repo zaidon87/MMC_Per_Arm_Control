@@ -159,14 +159,28 @@ For the **test method and a scientific caption for each of the nine aligned-dela
 - **Method:** metrics depend on finite simulation windows and controller configuration; they are not full switching-frequency THD, a formal stability proof, or proof of embedded/TWIST/HIL deployment.
 
 
-## D. New robustness study — SM capacitor tolerance, correction saturation and grid-current THD
+## D. Current robustness studies — corrected source archive figures
 
-This is an **additional uploaded simulation study**, separate from the original 11-case A/B/C evaluation. It contains 8 capacitance-tolerance runs, 4 clipping runs and 5 THD/gain comparisons (with overlapping operating conditions). Its original models, datasets and images are in [**Test1**](../experiments/test1/README.md).
+These experiments are independent additions to the original A/B/C eleven-case gallery. They **replace** the earlier unmatched random-capacitance comparison, rather than adding a second conflicting dataset.
 
-![Upper SM mean voltages, balancing OFF vs ON](../experiments/test1/figures/ctol_C_mean_voltages_upper.png)
+### D4 — matched-pattern capacitance-tolerance test
 
-- **Method:** Vary SM capacitances across identical, random ±10%, random ±20% and alternating ±20%; compare k_v=0 versus 0.2 over 2 s at 1.5 kW. The arm leaders continue to estimate energy using nominal 2.2 mF capacitors.
-- **Results:** worst-arm mean-voltage spread improves by 9.6×–26.6×, but alternating ±20% capacitances with k_v=0.2 raise low-order current THD to 7.27%.
-- **Follow-up:** bounded correction |Δm|≤0.10 reduces alternating-case THD to 4.17%; |Δm|≤0.05 yields 3.32%, with increased residual imbalance. Separate k_v=0.05 simulation yields 1.93% THD under alternating ±20%.
+![Corrected upper-arm SM voltage means, OFF versus ON](../experiments/capacitance_samepattern/figures/ctol_C_mean_voltages_upper_samepattern.svg)
 
-[View all six original figures and individual test methods](../experiments/test1/figures/README.md). Values are recorded simulation results; they are not HIL or hardware validation.
+**Setup:** Four physical C patterns (identical, matched random ±10% and ±20%, alternating ±20%), each run with balancing disabled and enabled (`k_v=0/0.2`), P*=1.5 kW, 2 s. Random ±20% deviations are exactly twice ±10% from the same seeded sample, and each OFF/ON pair holds C fixed. Filter each SM voltage separately over 20 ms and assess 0.5–2.0 s.
+
+**Recorded result:** worst-arm spread at matched random ±20% is **3.097 V OFF versus 0.171 V ON** (18.1× improvement). The alternating pattern corrects spread to 0.319 V but reports THD(2–20) = 7.27%.
+
+[Four images, complete methods and tables](../experiments/capacitance_samepattern/README.md).
+
+### D5 — neighbor-gain sweep and initial mismatch
+
+![Gain-dependent spread, grid-current THD and initial-condition convergence](../experiments/gain_sweep/figures/kv_sweep.svg)
+
+**Setup:** Identical and alternating ±20% C under four gains (0.05, 0.10, 0.15 and 0.20 V⁻¹) plus separate initial upper SM3=102 V, SM6=98 V runs (12 simulations). Voltage metrics use individually filtered 20 ms means. THD is limited to 50 Hz orders 2–20 during the last 0.2 s.
+
+**Recorded result:** alternating-C minimum sampled filtered spread = **0.249 V at k_v=0.15**; minimum low-order THD = **1.93% at k_v=0.05**. Under the distinct initial mismatch, spread stays below 0.5 V from **0.257 s at k_v=0.20**.
+
+[Full D5 method and numerical evidence](../experiments/gain_sweep/README.md) · [Independent bounded-correction experiment](../experiments/saturation/README.md).
+
+*The updated GitHub figures are SVG reconstructions from saved MAT/CSV recordings, not pixel-identical MATLAB PNGs. All results remain simulation-only.*
