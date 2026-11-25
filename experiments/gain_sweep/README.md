@@ -44,6 +44,10 @@ Within the sampled alternating-C configurations, `k_v=0.15` minimizes peak **fil
 
 **Right — Method:** With SM3 at 102 V and SM6 at 98 V, plot signed 20 ms-filtered SM3-minus-arm-mean error for four gains and measure permanent absolute settling thresholds separately. **Result:** `k_v=0.20` has the fastest measured settling for these specific mismatch conditions.
 
+## MATLAB reproduction from GitHub
+
+The [source-equivalent gain-sweep MATLAB runner](scripts/run_kv_sweep.m) uses the [same archived base model](../saturation/models/MMC_Per_arm_outer_v5_G2_tests.slx). Copy both into a MATLAB R2024a working directory and execute `run_kv_sweep`. The runner saves `kv_sweep_results.mat`, `kv_sweep_summary.csv`, `kv_sweep.png` and `kv_sweep.fig`. **Part B requires a unique initial-voltage parameter in the SM mask:** if auto-detection is ambiguous, set `VC0_PARAM` in the script and rerun before claiming 12 reproduced cases. The GitHub runner reproduces the supplied method but is not a byte-for-byte copy of the ZIP script.
+
 ## Source values and interpretation limits
 
 [Gain/THD CSV](data/gain_sweep_summary.csv) · [Initial-mismatch settling CSV](data/initial_mismatch_settling.csv) · [Figure-specific caption](figures/kv_sweep.md).
