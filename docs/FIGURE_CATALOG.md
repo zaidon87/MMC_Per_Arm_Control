@@ -1,8 +1,8 @@
-# Original figure catalog — 33 unique images
+# MMC figure catalog — original converter/delay plots and corrected robustness figures
 
-This catalog includes **27 original earlier PNGs and 6 additional Test1 PNGs** (not counting the duplicated directory layout under `test3/`). The linked Markdown pages show each original image with a brief experiment setup, test method and result directly underneath. Click the image itself on the page to open the original PNG. The images below are **unchanged, byte-for-byte PNG exports** from the user's previously uploaded experiment archives. Their original basenames and relative folders are retained. The descriptions distinguish recorded simulation plots, supplemental analyses, and reduced-model *expectations*.
+This catalog contains **27 original MATLAB PNG images** from the base, supplementary and aligned-delay research archives, plus **5 current source-derived SVG robustness images** based on the two newly supplied MAT/CSV archives. The former overlapping Test 1 capacitance and THD/gain files were removed from the current branch and are not included in the totals. The original A/B/C PNGs are unchanged; the new robustness plots are redrawn from source data rather than being pixel-identical PNG exports.
 
-For a test method and conclusion **under every image**, see [base figure guide](../experiments/base/figures/README.md), [aligned-delay figure guide](../experiments/aligned/figures/README.md) and [historical/reduced-order figure guide](../experiments/base/source_notes/nvb/README.md). See [Illustrated experiment gallery](EXPERIMENT_GALLERY.md) for a short explanation beside a figure for **each of the 11 recorded experiments**. See [Aligned-delay figure methods](../experiments/aligned/figures/README.md) for step-by-step explanations of each aligned PNG.
+[Base methods](../experiments/base/figures/README.md) · [Aligned methods](../experiments/aligned/figures/README.md) · [Corrected capacitance study](../experiments/capacitance_samepattern/figures/README.md) · [Gain sweep](../experiments/gain_sweep/figures/README.md)
 
 | Group | Figure (opens illustrated explanation) | Content / purpose |
 |---|---|---|
