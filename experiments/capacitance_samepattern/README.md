@@ -20,6 +20,12 @@ Single-phase grid-connected MMC, 8 SM per arm, nominal Vdc=800 V, nominal SM vol
 
 **Recorded result:** The matched ±20% random pattern yields **3.097 V without correction and 0.171 V with correction**. The prior Test 1 random ±20% values (2.248/0.221 V) remain separate because their random draws differ. This SVG was reconstructed from the uploaded numeric summary, **not copied from the original MATLAB PNG**.
 
+![Matched-pattern grid-current THD across the four capacitance distributions](figures/matched_pattern_thd.svg)
+
+**Figure method:** Use the same capacitance vectors for each OFF/ON pair. Analyze 50 Hz harmonics 2–20 in the final 0.2 s of the logged grid current. **Recorded outcome:** under alternating ±20% capacitances the gain `k_v=0.2` increases low-order THD from 3.26% (OFF) to 7.27% (ON). These are source-data plots and should not be confused with the five original MATLAB PNGs documented below.
+
+**Original figure mapping from `12(2).zip`:** `ctol_A_comparison_samepattern.png` (spread, instantaneous spread and THD); `ctol_B_imbalance_vs_time_samepattern.png` (time evolutions); `ctol_C_mean_voltages_upper_samepattern.png` (eight per-SM time traces per condition); `ctol_D_capacitance_vs_voltage_samepattern.png` (physical C versus final voltage). These original PNGs retain extra information that the compact SVG comparisons do not display. They are not yet hosted in this GitHub folder.
+
 [Download the numeric comparison CSV](data/verified_summary.csv). The original four MATLAB PNG figures, SLX, MAT, FIG and runner are **not yet committed to GitHub**. Figure-specific test methods for A–D are recorded below, but their original PNGs can only be viewed in the supplied source archive.
 
 ## Verified saved results
