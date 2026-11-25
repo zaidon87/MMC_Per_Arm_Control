@@ -4,7 +4,7 @@ A **single-phase grid-connected Modular Multilevel Converter (MMC)** with indepe
 
 ![MMC base experiments — overview](experiments/base/figures/grid_all_cases.png)
 
-**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Capacitance tolerance, saturation and THD tests](experiments/test1/README.md)** · **[Aligned-delay figures: nine methods and measured outcomes](experiments/aligned/figures/README.md)** · **[Base figures: 13 test methods](experiments/base/figures/README.md)** · **[Historical plots: five methods](experiments/base/source_notes/nvb/README.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
+**[View the illustrated 11-case experiment gallery](docs/EXPERIMENT_GALLERY.md)** · **[Corrected capacitor tolerance](experiments/capacitance_samepattern/README.md)** · **[Gain sweep and convergence](experiments/gain_sweep/README.md)** · **[Aligned-delay figures: nine methods and measured outcomes](experiments/aligned/figures/README.md)** · **[Base figures: 13 test methods](experiments/base/figures/README.md)** · **[Historical plots: five methods](experiments/base/source_notes/nvb/README.md)** · **[Browse all 27 original figures](docs/FIGURE_CATALOG.md)** · **[Control architecture](docs/CONTROL_ARCHITECTURE.md)** · **[Measured results](docs/VALIDATION_2026.md)**
 
 ## Control architecture
 
@@ -62,42 +62,38 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 
 **[Browse the separate Test 3 archive (repeat of base cases)](experiments/test3/README.md)** — 18 original figures and figure-by-figure test methods; the upload is identical to the base archive and does not increase the 11 unique case count.
 
-## Capacitance-tolerance robustness: Balancing OFF versus ON
+## Corrected capacitance-tolerance experiment
 
-![Upper-arm 20 ms mean capacitor voltages under identical, random and alternating capacitances with local balancing OFF and ON](experiments/test1/figures/ctol_C_mean_voltages_upper.png)
+The **matched-pattern study supersedes the earlier random ±20% comparison**. Identical, random ±10%, random ±20% and alternating ±20% capacitance patterns were compared using **the same physical capacitances within each balancing OFF/ON pair**. Crucially, the ±10% and ±20% random vectors use **the same seeded pattern with doubled deviation**, instead of two different draws.
 
-**Test:** Four SM capacitance patterns (identical, random ±10%, random ±20%, alternating ±20%) were each simulated for 2 s at P*=1,500 W, with local neighbor balancing disabled (`k_v=0`) and enabled (`k_v=0.2`). Each of the eight submodule voltages in the upper arm was separately averaged over 20 ms.
+![Corrected upper-arm mean capacitor voltages — 8 SMs × four capacitance patterns, balancing OFF versus ON](experiments/capacitance_samepattern/figures/ctol_C_mean_voltages_upper_samepattern.svg)
 
-**Recorded result:** The balancing correction strongly reduces inter-SM mean-voltage divergence: worst-arm spread improves by **26.6×, 19.0×, 10.2× and 9.6×** across the four patterns. **Trade-off:** for alternating ±20% capacitors, the reported low-order grid-current THD rises to **7.27%** at `k_v=0.2`; subsequent clipping and gain-sensitivity tests reduce the distortion, with a balancing-error trade-off.
+**Figure C — Procedure:** Simulate eight cases at P*=1,500 W, Vdc=800 V, eight SMs per arm, Cnom=2.2 mF and 100 V initial SM voltages. Compute a *trailing 20 ms average separately for each upper-arm SM* and compare all eight traces from 0.5–2.0 s. The first row uses `k_v=0`; the second uses `k_v=0.2 V⁻¹`. **Result:** OFF cases exhibit widening mean-voltage separation, while the ON cases remain clustered near 100 V, including the corrected matched random ±20% case.
 
-**[Complete Test 1: models, data, all six original figures and per-image methods](experiments/test1/README.md)** · [Explain this comparison figure](experiments/test1/figures/ctol_C_mean_voltages_upper.md).
+| Capacitance distribution | Balancing OFF, worst-arm spread | Balancing ON, worst-arm spread | Improvement |
+|---|---:|---:|---:|
+| Identical | 2.550 V | 0.096 V | 26.6× |
+| Random ±10% | 2.565 V | 0.135 V | 19.0× |
+| **Matched random ±20%** | **3.097 V** | **0.171 V** | **18.1×** |
+| Alternating ±20% | 3.050 V | 0.319 V | 9.6× |
 
-## New controlled robustness experiments (25 November 2026)
+These values are the maximum of the *per-arm max–min difference of individually 20 ms-averaged SM voltages* over t=0.5–2.0 s, taking the worse arm. They are **not** instantaneous ripple metrics. For the alternating ±20% pattern, the low-order grid-current THD(2–20) rises from **3.26%** at `k_v=0` to **7.27%** at `k_v=0.2`.
 
-- **[Matched-pattern capacitance tolerance (D4)](experiments/capacitance_samepattern/README.md):** fixes the old cross-tolerance comparison in which random ±10% and ±20% used different draws. The same random pattern now gives worst-arm OFF/ON spreads of **2.565/0.135 V at ±10%** and **3.097/0.171 V at ±20%**. Original Test 1 values are preserved as a *different random realization*.
-- **[Neighbor-gain sweep and convergence (D5)](experiments/gain_sweep/README.md):** twelve saved simulations at `k_v=0.05, 0.10, 0.15, 0.20`. With alternating ±20% capacitance, the lowest sampled filtered imbalance is **0.249 V at 0.15**, while the lowest sampled THD(2–20) is **1.93% at 0.05**. Initial ±2 V mismatch settling is documented separately.
+![Corrected four-pattern comparison of filtered spread, instantaneous spread and THD](experiments/capacitance_samepattern/figures/ctol_A_comparison_samepattern.svg)
 
-The two new documentation pages analyze the user's supplied MAT/CSV results; associated binary SLX/MAT/PNG/FIG files are in a separate corrected experiment package and are **not uploaded to these GitHub experiment folders**. No fresh Simulink execution is claimed. The originally featured `ctol_C_mean_voltages_upper.png` figure below remains the *historical Test 1 realization*, not the matched-pattern replacement.
+**Figure A — Procedure and result:** Under each fixed capacitance pattern, compare balancing OFF and ON using the worst-arm 20 ms-mean spread, worst-arm instantaneous spread and grid-current THD of 50 Hz harmonics 2–20 during the final 0.2 s. The corrected random ±20% run achieves **18.1×** filtered-spread improvement; the alternating ±20% condition exposes the THD penalty.
 
-### Updated robustness figures
+[Full four-figure experiment and numerical source summary](experiments/capacitance_samepattern/README.md).
 
-![Controlled comparison: capacitance tolerance with one matched random pattern](experiments/capacitance_samepattern/figures/matched_pattern_voltage_spread.svg)
+## Neighbor-balancing gain: THD and convergence
 
-**Method:** Fixed SM capacitances within each OFF/ON pair, identical random realization scaled from ±10% to ±20%, and max–min of separately 20 ms-averaged capacitor voltages during 0.5–2.0 s. **Result:** Random ±20% worst-arm spread changes from 3.097 V (OFF) to 0.171 V (ON). [Data and interpretation](experiments/capacitance_samepattern/README.md).
+![Gain sweep — mean-voltage spread, grid-current harmonics and initial-mismatch convergence](experiments/gain_sweep/figures/kv_sweep.svg)
 
-![Gain versus imbalance](experiments/gain_sweep/figures/gain_vs_imbalance.svg)
+**Gain-sweep procedure:** Twelve saved simulations: eight runs comparing identical and alternating ±20% physical capacitances at `k_v={0.05, 0.10, 0.15, 0.20}` V⁻¹, plus four initial-mismatch runs with upper SM3=102 V and SM6=98 V. **Results:** With alternating ±20% capacitances, the lowest sampled worst-arm filtered spread is **0.249 V at `k_v=0.15`**; the lowest sampled low-order THD is **1.93% at `k_v=0.05`**. Under the distinct ±2 V initial-mismatch test, upper-arm spread remains below 0.5 V from **0.257 s at `k_v=0.20`** versus **0.318 s at `k_v=0.05`**. Thus no single universal gain optimum is established.
 
-![Gain versus low-order grid current THD](experiments/gain_sweep/figures/gain_vs_thd.svg)
+[Gain-sweep dataset and full test methods](experiments/gain_sweep/README.md) · [Separate correction-saturation study](experiments/saturation/README.md).
 
-![Capacitance mismatch versus low-order grid-current THD](experiments/capacitance_samepattern/figures/matched_pattern_thd.svg)
-
-**Method:** Compare OFF/ON low-order THD(2–20) for identical, matched random ±10%, matched random ±20% and alternating ±20% capacitances. **Recorded result:** THD reaches 7.27% under alternating mismatch when `k_v=0.2`.
-
-![Initial mismatch — convergence threshold times](experiments/gain_sweep/figures/gain_vs_settling.svg)
-
-**Method:** Initialize upper SM3/SM6 at 102/98 V and measure persistent absolute-error and arm-spread thresholds. **Recorded result:** upper-arm filtered spread stays below 0.5 V from 0.257 s at `k_v=0.2`, versus 0.318 s at `k_v=0.05`.
-
-**Method:** Sweep `k_v` in 0.05/0.10/0.15/0.20 V^-1 under nominal and alternating ±20% capacitances. **Result:** For alternating C, the lowest sampled filtered spread is 0.249 V at `k_v=0.15`; the lowest sampled THD(2–20) is 1.93% at `k_v=0.05`. [Full procedures and convergence data](experiments/gain_sweep/README.md).
+*Provenance:* These five SVG plots are reconstructed from the **newly uploaded archived MATLAB/Simulink data**, with time-series downsampling for display; numerical tables use the full original MAT/CSV values. They are not pixel-identical copies of the original MATLAB PNGs. No additional Simulink run, physical network, TWIST or HIL validation is claimed.
 
 ## Files and reproduction
 
@@ -111,11 +107,11 @@ The two new documentation pages analyze the user's supplied MAT/CSV results; ass
 - `scripts/` — validation/import checkers.
 - **Large binary research supplements:** 8 new model variants, 3 archived MAT datasets and test runners are **not yet uploaded** here; see [import instructions](docs/IMPORT_BINARY_SUPPLEMENT.md) and [dataset schema](docs/REPRODUCE_RECORDED_DATA.md).
 
-The new `experiments/test1/` robustness study includes its **four original Simulink models, six PNGs, scripts and MAT/CSV results online**. Earlier A/B/C model variants and datasets have a separate historical import status described above.
+The previous overlapping Test 1 capacitance and harmonic figures/results have been superseded by the corrected matched-pattern and gain-sweep documentation. The independent saturation study is retained under `experiments/saturation/`. Original source archives supplied in this conversation are not reproduced byte-for-byte in GitHub; the displayed new figures are source-derived SVGs.
 
 ## Interpretation and research limitations
 
-The displayed figures are original saved simulation artifacts, not fresh runs. Instantaneous SM spread and **20 ms-averaged** voltage offset measure different behaviors. THD values here summarize harmonics **2–20** of the stored current, not full switching-frequency THD. No physical communication network, TWIST/STM32 embedded controller, OPAL-RT HIL, protection, or experimental validation is claimed.
+The original A/B/C figures are saved simulation artifacts. The updated robustness SVGs are source-derived redraws of saved MAT/CSV results, not fresh runs. Instantaneous SM spread and **20 ms-averaged** voltage offset measure different behaviors. THD values here summarize harmonics **2–20** of the stored current, not full switching-frequency THD. No physical communication network, TWIST/STM32 embedded controller, OPAL-RT HIL, protection, or experimental validation is claimed.
 
 ## License
 
