@@ -72,6 +72,13 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 
 **[Complete Test 1: models, data, all six original figures and per-image methods](experiments/test1/README.md)** · [Explain this comparison figure](experiments/test1/figures/ctol_C_mean_voltages_upper.md).
 
+## New controlled robustness experiments (25 November 2026)
+
+- **[Matched-pattern capacitance tolerance (D4)](experiments/capacitance_samepattern/README.md):** fixes the old cross-tolerance comparison in which random ±10% and ±20% used different draws. The same random pattern now gives worst-arm OFF/ON spreads of **2.565/0.135 V at ±10%** and **3.097/0.171 V at ±20%**. Original Test 1 values are preserved as a *different random realization*.
+- **[Neighbor-gain sweep and convergence (D5)](experiments/gain_sweep/README.md):** twelve saved simulations at `k_v=0.05, 0.10, 0.15, 0.20`. With alternating ±20% capacitance, the lowest sampled filtered imbalance is **0.249 V at 0.15**, while the lowest sampled THD(2–20) is **1.93% at 0.05**. Initial ±2 V mismatch settling is documented separately.
+
+The two new documentation pages analyze the user's supplied MAT/CSV results; associated binary SLX/MAT/PNG/FIG files are in a separate corrected experiment package and are **not uploaded to these GitHub experiment folders**. No fresh Simulink execution is claimed. The originally featured `ctol_C_mean_voltages_upper.png` figure below remains the *historical Test 1 realization*, not the matched-pattern replacement.
+
 ## Files and reproduction
 
 - `model/MMC_Per_arm_outer_v5_G2.slx` — original published model (preserved).
