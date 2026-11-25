@@ -48,6 +48,6 @@
 
 ## Data and scientific limitations
 
-[Recorded comparison values (CSV)](data/verified_summary.csv) · [All figure captions](figures/README.md).
+[Full archived per-arm simulation metrics (CSV)](data/ctol_recorded_metrics.csv) · [All figure captions](figures/README.md).
 
 These are archived simulations. The five-panel/topology figures are data-based GitHub SVG redraws; the source ZIP contains the original MATLAB PNGs, which are not byte-for-byte committed here. The original source runner explicitly asserts the random ±20% deviations equal twice those in ±10%. MATLAB was not rerun during the GitHub documentation update. No physical peer-to-peer packet timing, TWIST, hardware or HIL validation is claimed.
