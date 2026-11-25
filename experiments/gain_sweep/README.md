@@ -1,66 +1,51 @@
-# D5 — Neighbor-gain sweep and initial-imbalance convergence
+# D5 — Neighbor-gain sweep, current harmonics and initial mismatch
 
-**Source archive:** `13 thadkv(1).zip`. This extends Test 1's local-gain and THD analysis with **12 archived simulations**. The uploaded MAT/SLX/FIG/PNG binary files are retained in the separate corrected research package; this page reports verified numbers and figure methods.
+**Canonical source:** uploaded `13 thadkv(3).zip`, including `kv_sweep_results.mat`, `kv_sweep_summary.csv`, `run_kv_sweep.m` and original `kv_sweep.png`. These **12 saved simulations** supersede the previous overlapping gain/THD figure set.
 
-## Method
+## Test procedure
 
-Single-phase MMC (8 SM per arm, nominal Vdc 800 V, Vc 100 V, C=2.2 mF), 1500 W reference, 2 s runs. All 16 local SM control blocks are tested with neighbor correction gains `k_v = [0.05, 0.10, 0.15, 0.20]` V^-1.
+Single-phase grid MMC with eight SMs per arm, Vdc=800 V, Cnom=2.2 mF, 100 V initial nominal Vc, fixed P*=1500 W and 2 s simulation runs. Neighbor gains are `k_v={0.05,0.10,0.15,0.20}` V⁻¹.
 
-- **Part A (8 runs):** identical 2.2 mF C and alternating ±20% C (1.76/2.64 mF). Start all capacitors at 100 V. Measure the maximum worst-arm max–min spread of individually trailing-20-ms-averaged SM voltages over 0.5–2.0 s. THD is limited to the 50 Hz harmonics 2–20 during 1.8–2.0 s.
-- **Part B (4 runs):** identical C, initial upper SM3=102 V and SM6=98 V. Measure when the **absolute** deviation of SM3's filtered voltage from the upper-arm average **stays** below 1 V and 0.5 V, and when upper-arm filtered spread stays below 0.5 V. This is simulated capacitor-voltage convergence, **not measured communication-consensus latency**.
+**Part A (eight runs):** four gains for identical physical capacitances, plus four gains for alternating physical capacitances ±20% (`1.76/2.64 mF`). Compute worst-arm peak spread after a separate 20 ms trailing voltage mean per SM over t=0.5–2 s; compute grid-current THD from 50 Hz orders 2–20, t=1.8–2.0 s.
 
-## Figures and numerical data available in GitHub
+**Part B (four runs):** identical physical capacitances; initialize upper SM3=102 V, SM6=98 V, others 100 V. Evaluate the **absolute** deviation of upper SM3 from its arm mean and the filtered upper-arm spread. Settling time means the point after which the specified inequality remains true for the rest of the run; it is not the first threshold crossing and not communication-consensus latency.
 
-![Effect of local gain on worst-arm filtered voltage imbalance](figures/gain_vs_imbalance.svg)
+## Source results — Part A
 
-**Method and finding:** Holding the physical capacitance distribution fixed for each series, sweep four gains at constant 1500 W. The alternating ±20% series reaches its lowest sampled 20 ms-mean voltage spread of **0.249 V at `k_v=0.15`**.
-
-![Effect of local gain on low-order grid-current THD](figures/gain_vs_thd.svg)
-
-**Method and finding:** Calculate THD only from 50 Hz harmonics 2–20 of logged grid current during 1.8–2.0 s. Under alternating ±20% capacitance, THD increases from **1.93% at `k_v=0.05`** to **7.27% at `k_v=0.20`**. This is not switching-frequency or full-band THD.
-
-![Settling times for a ±2 V capacitor mismatch under four neighbor gains](figures/gain_vs_settling.svg)
-
-**Figure method:** Initialize upper SM3 to 102 V and SM6 to 98 V, with all other SMs nominal. For each `k_v`, measure the first time after which the absolute filtered SM3 error remains below 1 V/0.5 V and the filtered upper-arm spread remains below 0.5 V. **Recorded result:** `k_v=0.20` gives 0.212 s, 0.228 s and 0.257 s for the three respective criteria. This is a threshold-time summary of the original MATLAB `kv_sweep.png`, not the original signed SM3 time-trace plot.
-
-[Gain sweep numerical CSV](data/gain_sweep_summary.csv) · [Initial-mismatch convergence CSV](data/initial_mismatch_settling.csv)
-
-These SVGs are **reconstructed from archived recorded values**, not copies of the original `kv_sweep.png`. The latter, with its three-panel comparison, and the original MATLAB model/MAT/FIG/runner are **not yet committed to GitHub**.
-
-## Part A — Captured results
-
-| C pattern | k_v (V^-1) | Worst-arm filtered imbalance (V) | THD harmonics 2–20 |
+| Physical C | `k_v` (V⁻¹) | Worst-arm 20 ms-mean spread (V) | THD, h2–h20 (%) |
 |---|---:|---:|---:|
-| Identical | 0.05 | 0.186 | 2.63% |
-| Identical | 0.10 | 0.125 | 2.35% |
-| Identical | 0.15 | 0.095 | 2.66% |
-| Identical | 0.20 | 0.096 | 3.25% |
-| Alternating ±20% | 0.05 | 0.329 | 1.93% |
-| Alternating ±20% | 0.10 | 0.304 | 2.98% |
-| Alternating ±20% | 0.15 | 0.249 | 3.87% |
-| Alternating ±20% | 0.20 | 0.319 | 7.27% |
+| Identical | 0.05 | 0.186 | 2.63 |
+| Identical | 0.10 | 0.125 | 2.35 |
+| Identical | 0.15 | 0.095 | 2.66 |
+| Identical | 0.20 | 0.096 | 3.25 |
+| Alternating ±20% | 0.05 | 0.329 | **1.93** |
+| Alternating ±20% | 0.10 | 0.304 | 2.98 |
+| Alternating ±20% | 0.15 | **0.249** | 3.87 |
+| Alternating ±20% | 0.20 | 0.319 | 7.27 |
 
-**Finding:** For alternating mismatch the lowest sampled filtered imbalance is at `k_v=0.15`, whereas the lowest sampled low-order THD is at `k_v=0.05`. Increasing `k_v` is **not monotonically beneficial**. These four choices do not prove a universal optimum.
+Within the sampled alternating-C configurations, `k_v=0.15` minimizes peak **filtered spread**, whereas `k_v=0.05` minimizes the reported low-order THD. Neither is a universally optimized controller gain.
 
-## Part B — Settling times (s)
+## Source results — Part B
 
-| k_v | SM3 deviation stays <1 V | SM3 deviation stays <0.5 V | Upper-arm spread stays <0.5 V |
+| Gain `k_v` | SM3 absolute error stays below 1 V | SM3 absolute error stays below 0.5 V | Upper spread stays below 0.5 V |
 |---|---:|---:|---:|
-| 0.05 | 0.238 | 0.281 | 0.318 |
-| 0.10 | 0.237 | 0.258 | 0.290 |
-| 0.15 | 0.227 | 0.241 | 0.271 |
-| 0.20 | 0.212 | 0.228 | 0.257 |
+| 0.05 | 0.238 s | 0.281 s | 0.318 s |
+| 0.10 | 0.237 s | 0.258 s | 0.290 s |
+| 0.15 | 0.227 s | 0.241 s | 0.271 s |
+| 0.20 | **0.212 s** | **0.228 s** | **0.257 s** |
 
-**Finding:** `k_v=0.20` settles fastest under this *particular ±2 V initial-condition test*, despite less favorable harmonic results in the alternating-capacitance Part A comparison. Do not mix these distinct test conditions.
+## Figure — Gain, THD and convergence
 
-## Figure — `kv_sweep.png` (three panels)
+![Gain sweep original-data reconstruction: filtered spread, harmonics and SM3 initial-voltage convergence](figures/kv_sweep.svg)
 
-**Left — imbalance versus k_v:** Read the worst-arm 20 ms-filtered max–min voltage spread for both physical capacitance patterns. Alternating ±20% has a minimum of 0.249 V at 0.15.
+**Left — Method:** Run identical and alternating C patterns at all four `k_v` settings and plot maximum worst-arm 20 ms-filtered spread. **Result:** alternating ±20% has its lowest tested value, 0.249 V, at `k_v=0.15`.
 
-**Middle — grid-current THD:** Evaluate harmonic orders 2–20 in the last 0.2 s and plot THD versus k_v. Alternating ±20% rises from 1.93% to 7.27% across the tested gain range; this is **not full-band switching THD**.
+**Center — Method:** Analyze `i_ac` in the final 0.2 s for harmonics 2–20. **Result:** at alternating ±20%, THD rises from 1.93% (`k_v=0.05`) to 7.27% (`k_v=0.20`).
 
-**Right — initial-condition convergence:** Plot **signed** SM3 filtered voltage minus the mean filtered upper-arm voltage for the four gains after SM3 and SM6 are initialized at +2 V and -2 V. Use **absolute** errors for threshold times. Fast initial-condition settling is not evidence of global dynamic optimality.
+**Right — Method:** With SM3 at 102 V and SM6 at 98 V, plot signed 20 ms-filtered SM3-minus-arm-mean error for four gains and measure permanent absolute settling thresholds separately. **Result:** `k_v=0.20` has the fastest measured settling for these specific mismatch conditions.
 
-## Reproduce and evidence limits
+## Source values and interpretation limits
 
-Run `run_kv_sweep.m` with `MMC_Per_arm_outer_v5_G2_tests.slx` from Test 1 in MATLAB/Simulink R2024a. The script creates `_kv.slx` working copy, emits `kv_sweep_results.mat`, `kv_sweep_summary.csv`, `kv_sweep.png` and `kv_sweep.fig`. Part B's initial-voltage mask parameter must be identified; four Part B rows **are present** in the supplied CSV and MAT. These are saved simulations, not new reruns or HIL/hardware validations. The repeated settings overlap with earlier Test 1 and must not be counted as independent cases.
+[Gain/THD CSV](data/gain_sweep_summary.csv) · [Initial-mismatch settling CSV](data/initial_mismatch_settling.csv) · [Figure-specific caption](figures/kv_sweep.md).
+
+SVG uses recorded MAT values and time-series sampling; the source ZIP's MATLAB PNG is not byte-identical to this redraw. Neither full switching-frequency THD nor a new MATLAB execution, physical SM communication, STM32 timing or hardware/HIL verification is claimed.
