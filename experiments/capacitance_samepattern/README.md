@@ -46,6 +46,12 @@
 
 **Test method:** At `k_v=0.2`, compare each upper SM's physical C (mF) and individually filtered terminal voltage at 2 s. **Result:** the alternating pattern alternates between 2.64 and 1.76 mF while the eight mean voltages stay approximately near 100 V. Equalized Vc is **not** evidence of equal capacitor energy, since `E_i=0.5*C_i*Vc_i²`.
 
+## MATLAB reproduction from GitHub
+
+The source-equivalent [matched-pattern MATLAB runner](scripts/run_capacitance_tolerance_samepattern.m) applies the corrected `rng(1)` unit patterns, checks that the random ±20% C deviations are exactly double the ±10% deviations, and writes `ctol_results_samepattern.mat` and the four `*_samepattern.png` figures. Copy it into a MATLAB R2024a working directory together with the [shared original base model](../saturation/models/MMC_Per_arm_outer_v5_G2_tests.slx), then execute `run_capacitance_tolerance_samepattern`. The runner generates its own working copy of the base model; do not overwrite the archived source models. These scripts are equivalent reconstructions from the supplied procedure, not byte-for-byte copies of the original ZIP scripts.
+
+[Full per-arm source metrics CSV](data/ctol_recorded_metrics.csv).
+
 ## Data and scientific limitations
 
 [Full archived per-arm simulation metrics (CSV)](data/ctol_recorded_metrics.csv) · [All figure captions](figures/README.md).
