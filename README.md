@@ -79,6 +79,18 @@ Two arm leaders independently compute their modulation references. Each SM uses 
 
 The two new documentation pages analyze the user's supplied MAT/CSV results; associated binary SLX/MAT/PNG/FIG files are in a separate corrected experiment package and are **not uploaded to these GitHub experiment folders**. No fresh Simulink execution is claimed. The originally featured `ctol_C_mean_voltages_upper.png` figure below remains the *historical Test 1 realization*, not the matched-pattern replacement.
 
+### Updated robustness figures
+
+![Controlled comparison: capacitance tolerance with one matched random pattern](experiments/capacitance_samepattern/figures/matched_pattern_voltage_spread.svg)
+
+**Method:** Fixed SM capacitances within each OFF/ON pair, identical random realization scaled from ±10% to ±20%, and max–min of separately 20 ms-averaged capacitor voltages during 0.5–2.0 s. **Result:** Random ±20% worst-arm spread changes from 3.097 V (OFF) to 0.171 V (ON). [Data and interpretation](experiments/capacitance_samepattern/README.md).
+
+![Gain versus imbalance](experiments/gain_sweep/figures/gain_vs_imbalance.svg)
+
+![Gain versus low-order grid current THD](experiments/gain_sweep/figures/gain_vs_thd.svg)
+
+**Method:** Sweep `k_v` in 0.05/0.10/0.15/0.20 V^-1 under nominal and alternating ±20% capacitances. **Result:** For alternating C, the lowest sampled filtered spread is 0.249 V at `k_v=0.15`; the lowest sampled THD(2–20) is 1.93% at `k_v=0.05`. [Full procedures and convergence data](experiments/gain_sweep/README.md).
+
 ## Files and reproduction
 
 - `model/MMC_Per_arm_outer_v5_G2.slx` — original published model (preserved).
