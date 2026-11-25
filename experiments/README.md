@@ -17,6 +17,15 @@ The 11 recorded cases consist of three base tests, four follow-up tests, and fou
 **Independent Test 3 archive:** [`experiments/test3/`](test3/README.md) keeps the repeated upload separate for navigation and provenance. It does not change the total of 11 distinct simulation cases.
 
 
+## Corrected and extended robustness studies (25 November 2026)
+
+| Folder | Recorded runs | Relationship to Test 1 |
+|---|---:|---|
+| [`capacitance_samepattern/`](capacitance_samepattern/README.md) | 8 | Fixes the comparison between random ±10% and ±20% by scaling the **same** random pattern; original Test 1 results remain separately valid for their old random realization |
+| [`gain_sweep/`](gain_sweep/README.md) | 12 | Four `k_v` settings, identical versus alternating ±20% C, plus +2/-2 V upper-arm initial mismatch convergence |
+
+Both folders currently contain **English documentation** of the supplied archive data. Their original FIG/PNG/MAT/SLX inputs are provided in a separately downloadable corrected package, rather than already committed to GitHub. Some operating points overlap with Test 1: these are not 20 statistically independent new physical experiments.
+
 ## Detailed procedures under every figure
 
 - [Base: 13 original images](base/figures/README.md)
